@@ -1,0 +1,11 @@
+{
+  "name": "@clarix/mobile",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Clarix 503B iPad/iOS/Android app — cleanroom batch execution",
+  "scripts": {
+    "dev": "echo 'Run: npx expo start' && exit 0",
+    "typecheck": "echo 'Mobile typecheck placeholder' && exit 0"
+  },
+  "dependencies": {}
+}

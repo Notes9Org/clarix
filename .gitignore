@@ -1,0 +1,55 @@
+# Dependencies
+node_modules
+.pnp
+.pnp.js
+
+# Build outputs
+dist
+build
+*.tsbuildinfo
+.next/
+out/
+
+# Environment variables
+.env
+.env.*
+.env.local
+.env.*.local
+!.env.example
+
+# IDEs and editors
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+.idea
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Turbo
+.turbo
+
+# Testing
+coverage
+test-results/
+
+# Misc
+*.tgz
+.cache
+tmp
+temp
+*.pem
+
+# Supabase
+supabase/.temp/
+supabase/.branches/
+
+# Database
+**/*.db
+**/*.db-*

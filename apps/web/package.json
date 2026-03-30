@@ -1,0 +1,38 @@
+{
+  "name": "@clarix/web",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Clarix 503B web dashboard — batch review, QMS, reporting",
+  "type": "module",
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@clarix/db": "workspace:*",
+    "@clarix/auth": "workspace:*",
+    "@clarix/ui": "workspace:*",
+    "@clarix/utils": "workspace:*",
+    "next": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "zustand": "catalog:",
+    "sonner": "catalog:",
+    "lucide-react": "catalog:",
+    "framer-motion": "catalog:",
+    "recharts": "catalog:",
+    "nuqs": "catalog:",
+    "next-themes": "catalog:",
+    "tailwindcss": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "@types/node": "catalog:",
+    "@tailwindcss/postcss": "catalog:",
+    "typescript": "catalog:"
+  }
+}

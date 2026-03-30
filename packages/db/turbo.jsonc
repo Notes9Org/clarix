@@ -1,0 +1,24 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "extends": ["//"],
+  "tasks": {
+    "studio": {
+      "cache": false,
+      "persistent": true
+    },
+    "check-db": {},
+    "up": {},
+    "push": {},
+    "pull": {},
+    "drop": {},
+    "seed": {
+      "cache": false
+    },
+    "migrate": {
+      "cache": false
+    },
+    "generate": {
+      "cache": false
+    }
+  }
+}

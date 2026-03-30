@@ -1,0 +1,9 @@
+logLevel = "error"
+telemetry = false
+
+[test]
+coverage = false
+coverageThreshold = { line = 0.7, function = 0.8, statement = 0.9 }
+
+[install]
+linker = "isolated"

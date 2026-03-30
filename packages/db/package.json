@@ -1,0 +1,46 @@
+{
+  "name": "@clarix/db",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Clarix 503B database schemas, migrations, and queries",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./env.config": "./env.config.ts",
+    "./*": "./src/*.ts"
+  },
+  "scripts": {
+    "build": "tsdown",
+    "check-db": "dotenv-run -v -- drizzle-kit check",
+    "clean": "git clean -xdf .cache .turbo .drizzle dist coverage node_modules",
+    "drop": "dotenv-run -v -- drizzle-kit drop",
+    "generate": "dotenv-run -v -- drizzle-kit generate",
+    "migrate": "dotenv-run -v -- drizzle-kit migrate",
+    "pull": "dotenv-run -v -- drizzle-kit pull",
+    "push": "dotenv-run -v -- drizzle-kit push",
+    "seed": "DB_SEEDING=true dotenv-run -v -- bun scripts/seed.ts",
+    "studio": "dotenv-run -v -- drizzle-kit studio",
+    "typecheck": "tsc --noEmit --emitDeclarationOnly false",
+    "up": "dotenv-run -v -- drizzle-kit up"
+  },
+  "dependencies": {
+    "@clarix/utils": "workspace:*",
+    "drizzle-orm": "catalog:",
+    "drizzle-seed": "catalog:",
+    "drizzle-zod": "catalog:",
+    "envin": "catalog:",
+    "pg": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@types/bun": "catalog:",
+    "@types/node": "catalog:",
+    "@types/pg": "catalog:",
+    "drizzle-kit": "catalog:",
+    "tsdown": "catalog:",
+    "@dotenv-run/cli": "catalog:"
+  },
+  "peerDependencies": {
+    "typescript": "catalog:"
+  }
+}

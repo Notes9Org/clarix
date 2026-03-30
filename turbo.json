@@ -1,0 +1,44 @@
+{
+  "$schema": "https://turborepo.com/schema.json",
+  "ui": "stream",
+  "globalEnv": [
+    "DATABASE_URL",
+    "DIRECT_URL",
+    "DB_MIGRATING",
+    "BETTER_AUTH_*",
+    "NEXT_*",
+    "SUPABASE_*"
+  ],
+  "globalPassThroughEnv": [
+    "CI",
+    "NODE_ENV",
+    "SKIP_ENV_VALIDATION"
+  ],
+  "globalDependencies": [".env", "bun.lock"],
+  "tasks": {
+    "build": {
+      "description": "Compiles TypeScript and bundles the application",
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "outputs": [
+        ".next/**",
+        "dist/**",
+        "!.next/cache/**"
+      ]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "typecheck": {
+      "dependsOn": ["^build"],
+      "outputs": []
+    },
+    "test": {
+      "description": "Runs the test suite"
+    },
+    "clean": {
+      "cache": false
+    }
+  }
+}

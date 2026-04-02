@@ -3,9 +3,29 @@
   "version": "0.0.1",
   "private": true,
   "description": "Clarix 503B iPad/iOS/Android app — cleanroom batch execution",
+  "main": "expo-router/entry",
   "scripts": {
-    "dev": "echo 'Run: npx expo start' && exit 0",
-    "typecheck": "echo 'Mobile typecheck placeholder' && exit 0"
+    "dev": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "typecheck": "tsc --noEmit"
   },
-  "dependencies": {}
+  "dependencies": {
+    "expo": "~55.0.9",
+    "expo-router": "~55.0.8",
+    "expo-constants": "~55.0.9",
+    "expo-linking": "~55.0.9",
+    "expo-status-bar": "~55.0.4",
+    "react": "19.2.0",
+    "react-native": "0.83.4",
+    "react-native-screens": "~4.23.0",
+    "react-native-safe-area-context": "~5.6.2",
+    "react-native-web": "~0.21.0",
+    "react-dom": "19.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "~19.2.10",
+    "typescript": "~5.9.2"
+  }
 }

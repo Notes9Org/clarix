@@ -45,6 +45,7 @@
         "@clarix/db": "workspace:*",
         "@clarix/ui": "workspace:*",
         "@clarix/utils": "workspace:*",
+        "better-auth": "catalog:",
         "framer-motion": "catalog:",
         "lucide-react": "catalog:",
         "next": "catalog:",
@@ -70,8 +71,11 @@
       "name": "@clarix/auth",
       "version": "0.0.1",
       "dependencies": {
+        "@better-auth/drizzle-adapter": "1.5.6",
         "@clarix/db": "workspace:*",
         "better-auth": "catalog:",
+        "drizzle-orm": "catalog:",
+        "pg": "catalog:",
         "zod": "catalog:",
       },
       "devDependencies": {

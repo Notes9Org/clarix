@@ -75,16 +75,21 @@
     "db:studio": "turbo studio --filter=@clarix/db",
     "format": "oxfmt .",
     "lint": "oxlint .",
-    "typecheck": "turbo typecheck"
+    "typecheck": "turbo typecheck",
+    "test": "vitest run"
   },
   "devDependencies": {
     "@dotenv-run/cli": "catalog:",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
     "@types/bun": "catalog:",
     "@types/node": "catalog:",
+    "happy-dom": "^20.8.9",
     "shadcn": "catalog:",
     "tsdown": "catalog:",
     "turbo": "catalog:",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "vitest": "^4.1.2"
   },
   "engines": {
     "node": ">=24"

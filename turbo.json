@@ -7,7 +7,9 @@
     "DB_MIGRATING",
     "BETTER_AUTH_*",
     "NEXT_*",
-    "SUPABASE_*"
+    "SUPABASE_*",
+    "LOG_LEVEL",
+    "SENTRY_*"
   ],
   "globalPassThroughEnv": [
     "CI",

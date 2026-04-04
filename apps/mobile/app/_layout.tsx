@@ -14,6 +14,14 @@ export default function RootLayout() {
         }}
       >
         <Stack.Screen name="index" options={{ title: "Clarix" }} />
+        <Stack.Screen
+          name="login"
+          options={{ title: "Sign In", headerShown: false }}
+        />
+        <Stack.Screen
+          name="signup"
+          options={{ title: "Create Account", headerShown: false }}
+        />
       </Stack>
     </>
   );

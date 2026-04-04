@@ -3,7 +3,7 @@
     "name": "Clarix",
     "slug": "clarix-mobile",
     "version": "0.0.1",
-    "orientation": "landscape",
+    "orientation": "default",
     "icon": "./assets/icon.png",
     "scheme": "clarix",
     "userInterfaceStyle": "dark",

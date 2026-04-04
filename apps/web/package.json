@@ -13,6 +13,7 @@
   "dependencies": {
     "@clarix/db": "workspace:*",
     "@clarix/auth": "workspace:*",
+    "@clarix/observability": "workspace:*",
     "@clarix/ui": "workspace:*",
     "@clarix/utils": "workspace:*",
     "better-auth": "catalog:",
@@ -27,7 +28,8 @@
     "nuqs": "catalog:",
     "next-themes": "catalog:",
     "tailwindcss": "catalog:",
-    "zod": "catalog:"
+    "zod": "catalog:",
+    "@vercel/otel": "^2.1.1"
   },
   "devDependencies": {
     "@types/react": "catalog:",

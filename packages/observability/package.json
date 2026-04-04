@@ -1,0 +1,25 @@
+{
+  "name": "@clarix/observability",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Unified logging, tracing, and error capture for Clarix platform",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./*": "./src/*.ts"
+  },
+  "scripts": {
+    "build": "tsdown",
+    "typecheck": "tsc --noEmit --emitDeclarationOnly false"
+  },
+  "dependencies": {
+    "pino": "^9.6.0",
+    "@opentelemetry/api": "^1.9.0"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "pino-pretty": "^13.0.0",
+    "tsdown": "catalog:",
+    "typescript": "catalog:"
+  }
+}

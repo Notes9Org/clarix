@@ -7,7 +7,6 @@ import {
   boolean,
   uuid,
   timestamp,
-  pgEnum,
 } from "drizzle-orm/pg-core";
 
 /**
@@ -126,8 +125,9 @@ export const auth = betterAuth({
               "SELECT id FROM organization LIMIT 1"
             );
             const rows = result as unknown as { id: string }[];
-            if (rows.length > 0) {
-              userData.organizationId = rows[0].id;
+            const firstRow = rows[0];
+            if (firstRow) {
+              userData.organizationId = firstRow.id;
             }
           }
           return { data: userData };

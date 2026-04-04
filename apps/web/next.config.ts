@@ -10,6 +10,7 @@ const nextConfig: NextConfig = {
     "@clarix/shared",
     "@clarix/utils",
     "@clarix/auth",
+    "@clarix/observability",
   ],
 };
 

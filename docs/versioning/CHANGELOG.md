@@ -6,6 +6,72 @@
 
 ---
 
+## [0.0.2] — 2026-04-04
+
+### 🏷️ Codename: **Sentinel**
+
+> Authentication, observability, and the first real screens. Login works across web, iPad, and Android from a single Better Auth backend.
+
+### Summary
+
+Implemented the full observability stack and authentication flow. Every API call is now traced with OpenTelemetry, logged with Pino, and the auth system tracks users across all devices with IP and user agent recording.
+
+---
+
+### Added
+
+#### Observability (`@clarix/observability`) — NEW PACKAGE
+- **Pino structured logger** with automatic OpenTelemetry trace correlation (`traceId`, `spanId`)
+- **8 domain child loggers**: `authLogger`, `batchLogger`, `inventoryLogger`, `emLogger`, `qualityLogger`, `equipmentLogger`, `trainingLogger`, `complianceLogger`
+- **`withSpan()` helper** — wraps async functions in OTel spans with automatic error recording
+- **OpenTelemetry instrumentation** via `@vercel/otel` (1-line setup in `instrumentation.ts`)
+- **Health check endpoint**: `GET /api/observability/health` — verifies all 3 pillars
+- **Agent workflow**: `.agent/workflows/observability.md` — checklist for every new component
+
+#### Auth (`@clarix/auth`) — Client SDK
+- **Browser auth client** (`packages/auth/src/client.ts`) using `better-auth/react`
+- `authClient.useSession()`, `authClient.signIn.email()`, `authClient.signUp.email()`, `authClient.signOut()`
+- Type-safe session and user types with custom fields (role, organizationId)
+
+#### Web App (`@clarix/web`) — Landing + Auth + Dashboard
+- **Landing page** (`/`): Logo, hero, "Sign In" / "Create Account" CTAs, compliance footer
+- **Login page** (`/login`): Email + password form with observability logging
+- **Signup page** (`/signup`): Name + email + password registration
+- **Dashboard** (`/dashboard`): Session info card showing name, email, role, org, token, IP, user agent, timestamps
+- **Route protection** (`middleware.ts`): Cookie-based session check, redirect to `/login` for unauthenticated users
+- **Auth layout** (`(auth)/layout.tsx`): Centered card for login/signup forms
+
+#### Mobile App (`@clarix/mobile`) — Auth Flow
+- **Login screen** (`app/login.tsx`): Email + password with 56px touch targets
+- **Auth state check**: Home screen checks session, shows user info or login CTA
+- Handles Android emulator localhost (`10.0.2.2`) and iOS localhost correctly
+
+#### Configuration
+- Added `LOG_LEVEL`, `SENTRY_*` to `turbo.json` globalEnv
+- Added `LOG_LEVEL=debug` and Sentry placeholders to `.env`
+- Added `@vercel/otel` and `@clarix/observability` to web app dependencies
+- Added `DOM`, `DOM.Iterable` to web `tsconfig.json` lib
+
+### Fixed
+- Removed unused `pgEnum` import in `packages/auth/src/server.ts`
+- Fixed `rows[0]` possibly undefined (`noUncheckedIndexedAccess`) in auth server
+
+### Platforms Verified
+
+| Platform | Device | Status |
+|----------|--------|--------|
+| Web | Browser (localhost:3000) | ✅ Landing → Login → Dashboard |
+| Web | Observability health | ✅ Logs + Traces + Spans |
+| iOS | iPad Pro 13-inch (M5) | ✅ Login screen |
+| Android | Medium Phone API 36 | ✅ Login screen |
+| Build | `next build` | ✅ 0 errors |
+
+---
+
+*Released by: fillsai (ceo@fills.ai)*
+
+---
+
 ## [0.0.1] — 2026-04-02
 
 ### 🏷️ Codename: **Genesis**

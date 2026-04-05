@@ -1,0 +1,68 @@
+---
+title: Roles
+description: The 15-role RBAC hierarchy in Clarix
+---
+
+# Roles
+
+Clarix implements a **15-role RBAC hierarchy** designed for FDA-regulated 503B compounding facilities. Each role maps to a specific persona in a cleanroom operation.
+
+## Role Hierarchy
+
+| Tier | Roles | Access Level |
+|:----:|-------|-------------|
+| **0** | `admin` | Super admin — full system access |
+| **1** | `pharmacist_in_charge`, `pharmacist`, `production_manager` | Management — formula creation, batch release, team oversight |
+| **2** | `qa_manager`, `qa_specialist`, `compounding_supervisor`, `procurement_manager`, `training_coordinator`, `executive` | Specialist — domain-specific management |
+| **3** | `compounding_technician`, `qc_technician`, `warehouse_clerk`, `maintenance_technician` | Operations — execution and data entry |
+| **4** | `read_only` | View only — no data modification |
+
+## Role Definitions
+
+### Tier 0 — System
+
+**Admin** — Full system access including user management, org settings, audit trail, and all module data. Cannot be assigned via self-service.
+
+### Tier 1 — Management
+
+**Pharmacist in Charge (PIC)** — Responsible for formula approval, batch release, and regulatory compliance. The PIC is the legally responsible individual per FDA regulations.
+
+**Pharmacist** — Creates and verifies formulas, reviews batch records, co-signs with PIC for release.
+
+**Production Manager** — Schedules batches, assigns technicians, manages production workflow.
+
+### Tier 2 — Specialist
+
+**QA Manager** — Manages deviations, CAPAs, environmental monitoring, and quality system oversight.
+
+**QA Specialist** — Assists QA Manager with deviation investigations and document control.
+
+**Compounding Supervisor** — Oversees technicians on the production floor.
+
+**Procurement Manager** — Manages vendor relationships, purchase orders, and supplier qualifications.
+
+**Training Coordinator** — Manages personnel qualifications, training records, and compliance tracking.
+
+**Executive (VP)** — Read-only executive dashboard with KPIs and audit readiness metrics.
+
+### Tier 3 — Operations
+
+**Compounding Technician** — Executes batch records step-by-step on iPad in the cleanroom.
+
+**QC Technician** — Performs quality control testing, records lab sample results.
+
+**Warehouse Clerk** — Manages receiving, inventory transactions, and stock levels.
+
+**Maintenance Technician** — Handles equipment calibration, cleaning logs, and room maintenance.
+
+### Tier 4 — View Only
+
+**Read Only** — Can view all data the is accessible to their organization. Cannot modify any records.
+
+## Permission Rules
+
+1. **Org Isolation** — Every query is scoped by `organization_id`
+2. **Separation of Duties** — Batch execute ≠ review ≠ release (minimum 2 distinct users)
+3. **Audit Trail** — Every CREATE/UPDATE/DELETE writes to `audit_trail`
+4. **E-Signature** — Actions requiring signatures must re-authenticate
+5. **Immutable Records** — `audit_trail`, `e_signatures`, `inventory_transactions` are INSERT-only

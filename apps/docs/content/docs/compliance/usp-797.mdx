@@ -1,0 +1,88 @@
+---
+title: USP 797
+description: Sterile compounding standards compliance
+---
+
+# USP &lt;797&gt; Compliance
+
+Clarix is designed to support compliance with USP &lt;797&gt; — the United States Pharmacopeia chapter governing pharmaceutical compounding of sterile preparations.
+
+## Key Requirements
+
+### Personnel Qualification
+
+| Requirement | Clarix Implementation |
+|------------|----------------------|
+| Training documentation | Training module tracks all personnel qualifications |
+| Competency assessment | Competency assessments recordable per user |
+| Media fill qualification | Auto-expiring 6-month qualification with batch assignment blocking |
+| Garbing qualification | Annual garbing assessment tracking |
+| Hand hygiene | Gloved fingertip testing results recordable |
+
+### Facilities & Engineering
+
+| Requirement | Clarix Implementation |
+|------------|----------------------|
+| ISO classification | Room map with ISO 5/7/8 classification per area |
+| Temperature monitoring | Manual or sensor-based temperature logging |
+| Pressure differentials | Recordable per room with trend tracking |
+| HEPA certification | Equipment module tracks HEPA filter certification dates |
+
+### Environmental Monitoring
+
+| Requirement | Clarix Implementation |
+|------------|----------------------|
+| Viable air sampling | EM module with scheduled sampling points |
+| Viable surface sampling | Configurable sampling locations per room |
+| Non-viable particles | Particle count data entry and trending |
+| Alert/action limits | Auto-checking against configurable limits |
+| Excursion management | Auto-created excursions with batch impact assessment |
+| Trend analysis | Statistical trending charts per room/point |
+
+### Compounding Process
+
+| Requirement | Clarix Implementation |
+|------------|----------------------|
+| Master formulation record | Formula module with versioning and approval |
+| Compounding record | Digital batch record with step-by-step execution |
+| Component verification | Barcode scanning for material verification |
+| BUD assignment | Auto-calculated based on USP category |
+| Labeling | Auto-generated labels with required information |
+
+### Quality Assurance
+
+| Requirement | Clarix Implementation |
+|------------|----------------------|
+| Sterility testing | Lab samples module with batch linkage |
+| Endotoxin testing | Test results with specification limits |
+| Visual inspection | Photo capture in batch execution |
+| Deviation management | Quality module with full investigation workflow |
+| CAPA | CAPA lifecycle with effectiveness verification |
+
+## Documentation Requirements
+
+USP &lt;797&gt; requires documentation to be:
+
+- **Legible** — digital records eliminate handwriting issues
+- **Indelible** — INSERT-only audit trail prevents alteration
+- **Retrievable** — full-text search and export capabilities
+- **Retained** — minimum 3 years, configurable per state requirements
+
+## BUD Assignment
+
+Clarix auto-calculates BUD based on the revised USP &lt;797&gt; categories:
+
+### Category 1 (12 hours all conditions)
+- Compounded in ISO 5 or better
+- No sterility testing performed
+- **BUD = 12 hours** regardless of storage
+
+### Category 2 (1–45 days)
+- Compounded in ISO 5 within ISO 7 with ISO 8 ante-area
+- No sterility testing performed
+- BUD varies by storage temperature
+
+### Category 3 (extended dating)
+- Same facility requirements as Category 2
+- Sterility testing performed per USP &lt;71&gt;
+- Extended dating supported with stability data

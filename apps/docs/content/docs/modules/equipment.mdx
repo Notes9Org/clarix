@@ -1,0 +1,30 @@
+---
+title: Equipment & Calibration
+description: Equipment registry, calibration scheduling, and cleaning logs
+---
+
+# Equipment & Calibration
+
+Manage all facility equipment — from balances and autoclaves to HVAC systems and laminar flow hoods.
+
+## Features
+
+- Equipment registry with status tracking
+- Calibration schedule and record management
+- Cleaning log with agent rotation enforcement
+- Preventive maintenance scheduling
+- Decommission workflow
+
+## Equipment Status
+
+```
+Active → Out of Calibration → Re-Calibrated → Active
+Active → Decommissioned (irreversible)
+```
+
+## Business Rules
+
+| Rule | Description |
+|------|------------|
+| T1 | Equipment past calibration due date auto-transitions to `out_of_calibration` |
+| T2 | Batches cannot reference out-of-calibration or decommissioned equipment |

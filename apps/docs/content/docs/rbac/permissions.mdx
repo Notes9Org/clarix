@@ -1,0 +1,108 @@
+---
+title: Permissions
+description: Role-permission mapping and access control matrix
+---
+
+# Permissions
+
+Detailed access control matrix mapping each role to module-level permissions.
+
+## Permission Types
+
+| Permission | Symbol | Description |
+|-----------|:------:|-------------|
+| **Create** | C | Create new records |
+| **Read** | R | View existing records |
+| **Update** | U | Modify existing records |
+| **Delete** | D | Soft-delete records |
+| **Approve** | A | Approve/release records |
+| **Execute** | X | Execute workflows (e.g., batch steps) |
+
+## Access Control Matrix
+
+### Batch Records
+
+| Role | View | Create | Execute | Review | Release |
+|------|:----:|:------:|:-------:|:------:|:-------:|
+| admin | ✓ | ✓ | — | ✓ | ✓ |
+| pharmacist_in_charge | ✓ | ✓ | — | ✓ | ✓ |
+| pharmacist | ✓ | ✓ | — | ✓ | — |
+| production_manager | ✓ | ✓ | — | — | — |
+| qa_manager | ✓ | — | — | ✓ | — |
+| qa_specialist | ✓ | — | — | — | — |
+| compounding_supervisor | ✓ | — | ✓ | — | — |
+| compounding_technician | ✓* | — | ✓ | — | — |
+| qc_technician | ✓ | — | — | — | — |
+| executive | ✓ | — | — | — | — |
+| read_only | ✓ | — | — | — | — |
+
+*Technicians see only batches assigned to them.
+
+### Inventory
+
+| Role | View | Receive | Release | Adjust | Manage Vendors |
+|------|:----:|:-------:|:-------:|:------:|:--------------:|
+| admin | ✓ | ✓ | ✓ | ✓ | ✓ |
+| warehouse_clerk | ✓ | ✓ | — | ✓ | — |
+| procurement_manager | ✓ | ✓ | — | ✓ | ✓ |
+| qc_technician | ✓ | — | ✓ | — | — |
+| qa_manager | ✓ | — | ✓ | ✓ | ✓ |
+| production_manager | ✓ | — | — | — | — |
+| read_only | ✓ | — | — | — | — |
+
+### Quality
+
+| Role | View Deviations | Create | Investigate | Close | Manage CAPAs |
+|------|:---------------:|:------:|:-----------:|:-----:|:------------:|
+| admin | ✓ | ✓ | ✓ | ✓ | ✓ |
+| qa_manager | ✓ | ✓ | ✓ | ✓ | ✓ |
+| qa_specialist | ✓ | ✓ | ✓ | — | ✓ |
+| pharmacist_in_charge | ✓ | ✓ | — | ✓* | — |
+| pharmacist | ✓ | ✓ | — | — | — |
+| compounding_technician | — | ✓ | — | — | — |
+| executive | ✓ | — | — | — | — |
+| read_only | ✓ | — | — | — | — |
+
+*PIC co-signs closure for patient-impacting deviations.
+
+### Environmental Monitoring
+
+| Role | View | Collect | Enter Results | Manage Excursions |
+|------|:----:|:-------:|:-------------:|:-----------------:|
+| admin | ✓ | — | — | ✓ |
+| qa_manager | ✓ | — | ✓ | ✓ |
+| qa_specialist | ✓ | ✓ | ✓ | — |
+| qc_technician | ✓ | ✓ | ✓ | — |
+| executive | ✓ | — | — | — |
+| read_only | ✓ | — | — | — |
+
+### Users & Organizations
+
+| Role | View Users | Create | Edit Role | Ban | View Audit | Org Settings |
+|------|:----------:|:------:|:---------:|:---:|:----------:|:------------:|
+| admin | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| pharmacist_in_charge | ✓ | — | — | — | ✓ | — |
+| executive | ✓ | — | — | — | ✓ | — |
+| read_only | — | — | — | — | — | — |
+
+## Separation of Duties
+
+These restrictions are hardcoded and cannot be overridden:
+
+| Constraint | Rule |
+|-----------|------|
+| Batch execution ≠ review | The person who executes a batch cannot review it |
+| Batch review ≠ release | The person who reviews a batch cannot release it |
+| Document author ≠ approver | The person who writes a document cannot approve it |
+| CAPA assignee ≠ verifier | The person who completes a CAPA cannot verify its effectiveness |
+| Self-promotion blocked | No user can elevate their own role |
+
+## Organization Scoping
+
+All queries are automatically scoped to the user's active organization:
+
+```
+WHERE organization_id = session.active_organization_id
+```
+
+The `admin` role at the platform level can optionally view across all organizations.

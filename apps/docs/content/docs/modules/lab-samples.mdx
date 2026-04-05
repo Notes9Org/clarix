@@ -1,0 +1,53 @@
+---
+title: Lab Samples
+description: QC sample tracking, testing workflows, and result management
+---
+
+# Lab Samples
+
+Track quality control samples from collection through testing to final determination.
+
+## Sample Types
+
+| Type | Description | Testing |
+|------|-------------|---------|
+| In-process | Sampled during batch compounding | pH, visual, weight |
+| Finished product | Sampled from completed batch | Sterility, endotoxin, potency |
+| Stability | Sampled at defined intervals | All release tests at each time point |
+| Environmental | From EM program | Viable counts (separate module) |
+| Water | From water system | Conductivity, TOC, micro |
+
+## Sample Lifecycle
+
+```
+Collected → Submitted to Lab → Testing → Results Entered → Reviewed → Passed/Failed
+```
+
+## Testing Workflow
+
+1. **Sample collection** during or after batch compounding
+2. **Submission** — sample logged with batch reference, test requirements
+3. **Testing** — internal QC lab or external contract lab
+4. **Result entry** — raw data entered with method reference
+5. **Review** — QC Technician enters, QA Manager reviews
+6. **Determination** — pass/fail based on specification limits
+
+## Business Rules
+
+| Rule | Description |
+|------|-------------|
+| L1 | Batch cannot be released until all required samples are `passed` |
+| L2 | Sterility test results required for all CSP batches |
+| L3 | Endotoxin limits enforced per product specification |
+| L4 | Failed samples trigger automatic deviation creation |
+| L5 | Out-of-Specification (OOS) investigation required before re-test |
+| L6 | Sample retention: minimum 3 years per regulatory requirements |
+
+## External Lab Integration
+
+For tests sent to contract laboratories:
+
+- Track send date, expected turnaround, lab name
+- Result upload when received (PDF report + data entry)
+- COA verification by QA before acceptance
+- Turnaround time tracking for lab performance metrics

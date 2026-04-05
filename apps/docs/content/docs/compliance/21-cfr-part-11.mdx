@@ -1,0 +1,60 @@
+---
+title: 21 CFR Part 11
+description: Electronic records and signatures compliance
+---
+
+# 21 CFR Part 11 Compliance
+
+Clarix is designed to comply with **21 CFR Part 11** — the FDA regulation governing electronic records and electronic signatures.
+
+## Key Requirements
+
+### Electronic Records (Subpart B)
+
+| Requirement | Clarix Implementation |
+|------------|----------------------|
+| **§ 11.10(a)** Validation | System validated per GAMP 5 |
+| **§ 11.10(b)** Readable copies | All records exportable as PDF |
+| **§ 11.10(c)** Record protection | PostgreSQL with backups, INSERT-only audit trail |
+| **§ 11.10(d)** Limit system access | RBAC with 15 roles, session management |
+| **§ 11.10(e)** Audit trail | `audit_trail` table — immutable, timestamped, user-attributed |
+| **§ 11.10(g)** Authority checks | Role-based permissions enforced at API and UI level |
+| **§ 11.10(k)** Device checks | Session tracks IP address and user agent |
+
+### Electronic Signatures (Subpart C)
+
+| Requirement | Clarix Implementation |
+|------------|----------------------|
+| **§ 11.50** Signature manifestation | E-signature records: signer name, role, meaning, timestamp |
+| **§ 11.70** Signature linking | Cryptographic binding of signature to record |
+| **§ 11.100** Unique to individual | One user = one identity, no shared accounts |
+| **§ 11.200** Components | PIN + biometric (FaceID/TouchID) for iPad |
+
+## Audit Trail
+
+The `audit_trail` table is **INSERT-only** — no record can be modified or deleted:
+
+```sql
+CREATE TABLE audit_trail (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  organization_id UUID NOT NULL REFERENCES organization(id),
+  user_id UUID NOT NULL REFERENCES "user"(id),
+  action TEXT NOT NULL,          -- 'CREATE', 'UPDATE', 'DELETE'
+  table_name TEXT NOT NULL,
+  record_id UUID NOT NULL,
+  old_values JSONB,
+  new_values JSONB,
+  ip_address TEXT,
+  user_agent TEXT,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+```
+
+## E-Signatures
+
+Electronic signatures capture:
+
+- **Signer identity** — user ID + name + role at time of signing
+- **Meaning** — what the signature represents ("Verified", "Approved", "Manufactured by")
+- **Timestamp** — server-side UTC timestamp
+- **Authentication** — PIN re-entry + biometric on iPad

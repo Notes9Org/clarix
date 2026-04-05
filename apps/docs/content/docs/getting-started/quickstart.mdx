@@ -1,0 +1,48 @@
+---
+title: Quick Start
+description: Get Clarix up and running in 5 minutes
+---
+
+# Quick Start
+
+This guide gets you from zero to a running Clarix instance in 5 minutes.
+
+## 1. Install Dependencies
+
+```bash
+bun install
+```
+
+## 2. Configure Environment
+
+Copy the example env file and fill in your database credentials:
+
+```bash
+cp .env.example .env
+```
+
+## 3. Push Schema
+
+```bash
+bun run db:push
+```
+
+## 4. Create Your First User
+
+Start the development server and create an account:
+
+```bash
+bun run dev
+```
+
+Navigate to `http://localhost:3000/signup` and create your admin account.
+
+## 5. Verify Authentication
+
+After signing up, you should be redirected to the dashboard at `/dashboard`. The session is synchronized across web, iPad, and Android through the shared Better Auth backend.
+
+## Next Steps
+
+- [Authentication](/docs/authentication/overview) — Learn about the auth system
+- [Roles & Permissions](/docs/rbac/roles) — Understand the 15-role RBAC hierarchy
+- [Multi-Tenancy](/docs/rbac/multi-tenancy) — How organizations work

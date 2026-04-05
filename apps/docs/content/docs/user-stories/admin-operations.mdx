@@ -1,0 +1,213 @@
+---
+title: Admin & Operations
+description: User stories for user management, organization settings, and system administration
+---
+
+# Admin & Operations
+
+Platform administration, user management, and multi-tenant operations.
+
+## User Management
+
+### US-A01: Create a User
+**As an** Admin, **I want to** create new user accounts with name, email, and role assignment, **so that** personnel can access the system with appropriate permissions.
+
+**Acceptance Criteria:**
+- Required fields: name, email, password (auto-generated or manual), role
+- User auto-assigned to admin's organization
+- Welcome email sent with login credentials (future)
+- Initial password requires change on first login
+- Audit trail records creation with all field values
+- User starts in `active` status
+
+**Priority:** P0 | **Sprint:** 1
+
+---
+
+### US-A02: Assign/Change User Role
+**As an** Admin, **I want to** change a user's role, **so that** their permissions match their current job function.
+
+**Acceptance Criteria:**
+- Role selector shows all 15 roles with descriptions
+- Role change effective immediately
+- Previous role recorded in audit trail
+- Navigation and UI update on next page load
+- Admin cannot demote themselves from admin role
+- Notification sent to user about role change
+
+**Priority:** P0 | **Sprint:** 1
+
+---
+
+### US-A03: Ban/Suspend a User
+**As an** Admin, **I want to** temporarily or permanently ban a user, **so that** terminated or suspended employees lose system access immediately.
+
+**Acceptance Criteria:**
+- Ban options: temporary (with expiry date) or permanent
+- All active sessions for user immediately invalidated
+- Banned user sees "Account suspended" on login attempt
+- Ban reason required and recorded in audit trail
+- Auto-expiry for temporary bans restores access
+- Admin can unban at any time
+
+**Priority:** P0 | **Sprint:** 2
+
+---
+
+### US-A04: View All Sessions
+**As an** Admin, **I want to** view all active sessions across the platform with device info, **so that** I can monitor for unauthorized access and enforce session policies.
+
+**Acceptance Criteria:**
+- Table: user, IP address, user agent, login time, last activity
+- Filter by user, IP, time range
+- Bulk revoke sessions (e.g., revoke all sessions for a user)
+- Highlight suspicious: login from new IP, multiple simultaneous sessions
+- Session count per user
+
+**Priority:** P1 | **Sprint:** 4
+
+---
+
+### US-A05: User Search & Filter
+**As an** Admin, **I want to** search and filter users by name, email, role, or status, **so that** I can quickly find and manage accounts.
+
+**Acceptance Criteria:**
+- Search: instant text search across name and email
+- Filter: role dropdown, status (active/banned), organization
+- Sort: name, email, role, created date, last login
+- Results: avatar, name, email, role badge, status indicator
+- Click user → detail/edit page
+
+**Priority:** P0 | **Sprint:** 2
+
+---
+
+## Organization Management
+
+### US-A06: Create an Organization
+**As an** Admin (platform-level), **I want to** create new tenant organizations, **so that** new 503B facilities can onboard to the platform.
+
+**Acceptance Criteria:**
+- Org fields: name, slug, license number, DEA number, address, phone
+- Slug must be unique and URL-friendly
+- Default settings applied (timezone, session timeout)
+- Admin user assigned as org owner
+- Org-scoped tables initialized
+
+**Priority:** P0 | **Sprint:** 2
+
+---
+
+### US-A07: Configure Organization Settings
+**As an** Admin, **I want to** configure organization-level settings (timezone, session policies, feature flags), **so that** each facility operates with appropriate configuration.
+
+**Acceptance Criteria:**
+- Settings: timezone, session timeout, password policy, feature toggles
+- Feature flags: enable/disable modules per org
+- Changes require admin e-signature
+- Settings stored in org's `settings` JSONB column
+- Effect immediate on next request
+
+**Priority:** P1 | **Sprint:** 4
+
+---
+
+### US-A08: View Organization Dashboard
+**As an** Admin, **I want to** see a summary dashboard for my organization with key metrics, **so that** I understand facility operations at a glance.
+
+**Acceptance Criteria:**
+- Metrics: total users, active sessions, recent deviations, active batches
+- Quick links to admin pages (users, settings, events)
+- Recent activity log (last 20 events)
+- System health indicators (DB connection, auth service)
+
+**Priority:** P0 | **Sprint:** 2
+
+---
+
+## Audit & Compliance
+
+### US-A09: View Audit Trail
+**As an** Admin or QA Manager, **I want to** view the complete audit trail of all system events, **so that** I can demonstrate 21 CFR Part 11 compliance to FDA inspectors.
+
+**Acceptance Criteria:**
+- Table: timestamp, user, action (CREATE/UPDATE/DELETE), table, record ID
+- Old values and new values shown for UPDATE actions
+- Filter by: user, action, table, date range
+- IP address and user agent per event
+- Audit trail is INSERT-only — cannot be modified or deleted
+- Exportable as CSV for external analysis
+
+**Priority:** P0 | **Sprint:** 3
+
+---
+
+### US-A10: Generate Compliance Report
+**As an** Admin, **I want to** generate a regulatory compliance summary report, **so that** we can prepare for FDA inspections.
+
+**Acceptance Criteria:**
+- Report sections: user access control, audit trail summary, deviation/CAPA status
+- Training compliance percentage
+- Equipment calibration status
+- EM trending summary
+- Open items requiring resolution before inspection
+- PDF export with cover page and table of contents
+
+**Priority:** P2 | **Sprint:** 8
+
+---
+
+## System Operations
+
+### US-A11: Monitor System Health
+**As an** Admin, **I want to** view system health metrics (database, auth, API response times), **so that** I can ensure the platform is operational.
+
+**Acceptance Criteria:**
+- Health endpoint: `/api/health` returns status of all services
+- Dashboard shows: DB connection, auth service, API latency (p50, p95, p99)
+- Alert if any service unhealthy
+- Uptime metrics (daily/weekly/monthly)
+
+**Priority:** P1 | **Sprint:** 4
+
+---
+
+### US-A12: Data Export
+**As an** Admin, **I want to** export facility data in standard formats, **so that** we can backup, analyze, or migrate data.
+
+**Acceptance Criteria:**
+- Export modules: users, batches, inventory, deviations, EM data
+- Formats: CSV, JSON
+- Date range filter
+- Export jobs run async with download link
+- Audit trail records all exports
+
+**Priority:** P2 | **Sprint:** 8
+
+---
+
+### US-A13: Cross-Device Session Sync
+**As a** any user, **I want to** have my session synchronized across web, iPad, and Android, **so that** I can switch devices without re-authenticating.
+
+**Acceptance Criteria:**
+- Session stored server-side in PostgreSQL
+- Same session token works across all clients
+- Session refresh on any device extends expiry for all
+- Logout on one device option vs logout everywhere
+- Device list shows all active sessions for current user
+
+**Priority:** P0 | **Sprint:** 2
+
+---
+
+### US-A14: IP-Based Access Restriction
+**As an** Admin, **I want to** optionally restrict platform access to specific IP ranges, **so that** only facility-network devices can connect (for high-security deployments).
+
+**Acceptance Criteria:**
+- Allowlist: define IP ranges per organization
+- Requests from outside allowlist → 403 Forbidden
+- Admin IPs always allowed (bypass)
+- Setting toggleable (off by default)
+- Blocked attempts logged with IP and user agent
+
+**Priority:** P3 | **Sprint:** Backlog

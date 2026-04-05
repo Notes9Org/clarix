@@ -1,0 +1,179 @@
+---
+title: Equipment & Maintenance
+description: User stories for equipment registry, calibration, cleaning, and maintenance scheduling
+---
+
+# Equipment & Maintenance
+
+Manage facility equipment lifecycle from commissioning to decommission.
+
+### US-T01: Register Equipment
+**As a** Maintenance Technician (Nina), **I want to** add new equipment to the system with specifications and calibration requirements, **so that** all equipment is tracked and scheduled for maintenance.
+
+**Acceptance Criteria:**
+- Equipment record: name, manufacturer, model, serial number, location (room)
+- Classification: critical (direct product contact) or non-critical
+- Calibration requirements: frequency, method, acceptable range
+- Status starts as `active`
+- Upload commissioning/qualification documents (IQ/OQ/PQ)
+- Equipment assigned unique asset ID
+
+**Priority:** P1 | **Sprint:** 5
+
+---
+
+### US-T02: Schedule Calibration
+**As a** Maintenance Technician (Nina), **I want to** set calibration schedules and receive reminders before due dates, **so that** no equipment falls out of calibration.
+
+**Acceptance Criteria:**
+- Per equipment: calibration frequency (monthly, quarterly, semi-annual, annual)
+- Due date auto-calculated from last calibration + frequency
+- Reminder notification 14 days and 3 days before due
+- If not calibrated by due date → status auto-transitions to `out_of_calibration`
+- OOC equipment cannot be referenced in batch records (system-enforced)
+
+**Priority:** P1 | **Sprint:** 5
+
+---
+
+### US-T03: Record Calibration
+**As a** Maintenance Technician (Nina), **I want to** record a calibration event with reference standards and pass/fail results, **so that** calibration history is documented.
+
+**Acceptance Criteria:**
+- Calibration record: date, technician, method, reference standard used
+- As-found and as-left readings recorded
+- Pass/fail determination based on acceptable range
+- If fail → equipment transitions to `out_of_calibration` + deviation created
+- If pass → next due date auto-set
+- E-signature: "Calibration performed by"
+- Calibration certificate uploadable
+
+**Priority:** P1 | **Sprint:** 5
+
+---
+
+### US-T04: Record Cleaning
+**As a** Maintenance Technician (Nina) or Compounding Technician (Maria), **I want to** log cleaning activities for rooms and equipment, **so that** cleaning is documented and room status is current.
+
+**Acceptance Criteria:**
+- Cleaning record: item/room, cleaning agent, method, date/time
+- Cleaning agent rotation tracking (prevent pathogen adaptation)
+- E-signature: "Cleaned by"
+- Room status updated: `cleaned` with clean-hold expiry
+- Clean-hold expiry: configurable per room (e.g., 24 hours)
+- Expired clean-hold → room status = `requires_cleaning`
+
+**Priority:** P1 | **Sprint:** 5
+
+---
+
+### US-T05: Schedule Preventive Maintenance
+**As a** Maintenance Technician (Nina), **I want to** create recurring preventive maintenance schedules, **so that** equipment is maintained before failure.
+
+**Acceptance Criteria:**
+- PM schedule: equipment, frequency, task checklist, expected duration
+- Auto-generate work orders per schedule
+- Work order assigned to technician with due date
+- Dashboard shows: upcoming PMs this week/month
+- Overdue PMs highlighted and escalated
+
+**Priority:** P1 | **Sprint:** 6
+
+---
+
+### US-T06: Complete a Work Order
+**As a** Maintenance Technician (Nina), **I want to** complete maintenance tasks via a checklist on iPad, **so that** work is documented with signatures.
+
+**Acceptance Criteria:**
+- Work order displays: equipment, task checklist, parts needed
+- Each checklist item: description, pass/fail, notes
+- Parts consumed from inventory (optional integration)
+- Completion triggers e-signature
+- Work order history maintained per equipment
+- If issue discovered → deviation creation
+
+**Priority:** P1 | **Sprint:** 6
+
+---
+
+### US-T07: View Equipment Status Dashboard
+**As a** Maintenance Technician (Nina), **I want to** see the status of all equipment at a glance, **so that** I can prioritize calibration and maintenance work.
+
+**Acceptance Criteria:**
+- Table: equipment name, location, status, next calibration, next PM
+- Status: active, out_of_calibration, maintenance_required, decommissioned
+- Filter by status, location, category
+- Calendar view of upcoming calibrations and PMs
+- Click equipment → full detail page
+
+**Priority:** P1 | **Sprint:** 5
+
+---
+
+### US-T08: Decommission Equipment
+**As a** QA Manager (David), **I want to** decommission equipment that is no longer in use, **so that** it is excluded from production activities.
+
+**Acceptance Criteria:**
+- Decommission requires: reason, QA Manager approval
+- Status transitions to `decommissioned` (irreversible)
+- Decommissioned equipment excluded from batch record equipment selection
+- Equipment record preserved for historical reference
+- E-signature: "Decommissioned by"
+
+**Priority:** P2 | **Sprint:** 7
+
+---
+
+### US-T09: Track Equipment Qualification
+**As a** QA Manager (David), **I want to** track IQ/OQ/PQ qualification status for critical equipment, **so that** qualification documentation is current.
+
+**Acceptance Criteria:**
+- Qualification records: IQ (Installation), OQ (Operational), PQ (Performance)
+- Each record: date, performer, result, next due
+- Upload qualification protocols and reports
+- Re-qualification triggers: after maintenance, after move, periodic
+- Qualification status visible on equipment dashboard
+
+**Priority:** P2 | **Sprint:** 7
+
+---
+
+### US-T10: Cleaning Agent Rotation
+**As a** the system, **I want to** enforce cleaning agent rotation per room, **so that** microbial resistance is prevented.
+
+**Acceptance Criteria:**
+- Define cleaning agent rotation schedule per room (e.g., Agent A → Agent B → Agent A)
+- System suggests next agent based on rotation schedule
+- Alert if same agent used consecutively beyond allowed count
+- Cleaning agent lot tracking for traceability
+- Rotation compliance visible on EM dashboard
+
+**Priority:** P2 | **Sprint:** 7
+
+---
+
+### US-T11: Water System Monitoring
+**As a** Maintenance Technician (Nina), **I want to** record water system sampling and test results, **so that** USP purified water quality is documented.
+
+**Acceptance Criteria:**
+- Sampling points defined per water system
+- Test parameters: conductivity, TOC, microbial count, endotoxin
+- Results auto-checked against USP limits
+- Out-of-spec results trigger alert + potential deviation
+- Trend charts for water quality parameters
+
+**Priority:** P2 | **Sprint:** 8
+
+---
+
+### US-T12: Equipment Alarm Management
+**As a** Maintenance Technician (Nina), **I want to** manage equipment alarms and document responses, **so that** alarm events are tracked and resolved.
+
+**Acceptance Criteria:**
+- Alarm record: equipment, alarm type, severity, timestamp
+- Response documentation: action taken, resolution time
+- Unresolved alarms escalate after configurable timeout
+- Alarm history per equipment
+- Future: integration with equipment sensors
+
+**Priority:** P3 | **Sprint:** Backlog

@@ -1,0 +1,77 @@
+---
+title: Session Management
+description: Cross-device session handling and security
+---
+
+# Session Management
+
+Clarix uses server-side sessions stored in PostgreSQL for maximum security and cross-device synchronization.
+
+## Session Architecture
+
+```
+Client (Web, iPad, Android)
+    ↓ sends cookie with session_token
+API (Next.js, Expo)
+    ↓ validates token
+PostgreSQL (session table)
+    ↓ returns user data + org context
+Response includes user, role, organization
+```
+
+## Session Properties
+
+| Property | Description |
+|----------|-------------|
+| `id` | Unique session ID (UUID) |
+| `token` | Random session token (stored in cookie) |
+| `userId` | Foreign key to user table |
+| `ipAddress` | Client IP at login time |
+| `userAgent` | Browser/device identifier |
+| `createdAt` | Login timestamp |
+| `updatedAt` | Last activity timestamp |
+| `expiresAt` | Session expiry (login time + 24 hours) |
+| `activeOrganizationId` | Current org context |
+
+## Cross-Device Sync
+
+Sessions are shared across all platforms because they are validated server-side:
+
+1. **Web** (localhost:3000) — session cookie in browser
+2. **iPad** (React Native) — session token in secure storage
+3. **Android** (React Native) — session token in secure storage
+
+When a user logs in on any device, the same session token works everywhere. Session refresh on any device extends expiry for all.
+
+## Session Lifecycle
+
+```
+Login → Session Created (24h TTL)
+    ↓
+Activity → Session Updated (TTL extended every hour)
+    ↓
+24h of inactivity or explicit logout → Session Destroyed
+```
+
+## Security Controls
+
+| Control | Implementation |
+|---------|---------------|
+| Storage | Server-side only (PostgreSQL). No JWT. |
+| Transport | HTTPS-only cookie with `HttpOnly`, `SameSite=lax` |
+| Rotation | Token rotated on refresh for added security |
+| Concurrent limit | Configurable max sessions per user (default: unlimited) |
+| Force logout | Admin can invalidate any/all sessions for a user |
+| Device tracking | IP + user agent recorded per session |
+
+## E-Signature Sessions
+
+For operations requiring e-signatures (batch execution, formula approval), a secondary authentication factor is required:
+
+| Platform | Factor 1 | Factor 2 |
+|----------|----------|----------|
+| **Web** | Active session | PIN re-entry |
+| **iPad** | Active session | PIN + FaceID/TouchID |
+| **Android** | Active session | PIN + fingerprint |
+
+The e-signature creates a separate `e_signature` record linked to the action, not a new session.

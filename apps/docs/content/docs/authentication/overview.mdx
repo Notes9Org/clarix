@@ -1,0 +1,58 @@
+---
+title: Authentication Overview
+description: How Clarix handles authentication with Better Auth
+---
+
+# Authentication
+
+Clarix uses **Better Auth** for authentication — a framework-agnostic, TypeScript-first auth library.
+
+## How It Works
+
+1. **Email + Password** — Users authenticate with email and password
+2. **Session-Based** — Server-side sessions stored in PostgreSQL
+3. **Cross-Device Sync** — Sessions are shared across web, iPad, and Android
+4. **Device Tracking** — IP address and user agent recorded per session
+
+## Configuration
+
+The auth server is configured in `packages/auth/src/server.ts`:
+
+```typescript
+import { betterAuth } from "better-auth";
+
+export const auth = betterAuth({
+  emailAndPassword: { enabled: true },
+  session: {
+    expiresIn: 60 * 60 * 24, // 24 hours
+    updateAge: 60 * 60,       // Refresh every hour
+  },
+});
+```
+
+## Client SDK
+
+On the frontend, use the auth client from `@clarix/auth/client`:
+
+```typescript
+import { authClient } from "@clarix/auth/client";
+
+// Sign in
+await authClient.signIn.email({ email, password });
+
+// Get session
+const { data: session } = authClient.useSession();
+
+// Sign out
+await authClient.signOut();
+```
+
+## Session Security
+
+| Setting | Value |
+|---------|-------|
+| Session duration | 24 hours |
+| Refresh interval | 1 hour |
+| Failed login lockout | 5 attempts / 30 minutes |
+| Session storage | PostgreSQL (server-side) |
+| Device tracking | IP + User Agent per session |

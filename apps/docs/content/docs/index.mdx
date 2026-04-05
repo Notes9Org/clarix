@@ -1,0 +1,57 @@
+---
+title: Introduction
+description: Clarix — 503B Digital Batch Record & Facility Management Platform
+---
+
+# Introduction
+
+Clarix is a comprehensive digital platform designed for FDA-registered **503B outsourcing compounding facilities**. It replaces paper-based batch records, manual quality tracking, and disconnected compliance workflows with a unified, auditable digital system.
+
+## What is Clarix?
+
+Clarix provides end-to-end digital management for sterile compounding operations:
+
+- **Digital Batch Records** — Step-by-step guided execution with e-signatures
+- **Inventory Management** — Lot tracking, FIFO enforcement, expiry alerts
+- **Environmental Monitoring** — Room monitoring, sample schedules, excursion tracking
+- **Quality Management** — Deviations, CAPAs, document control
+- **Equipment & Calibration** — Registry, calibration schedules, cleaning logs
+- **Training & Compliance** — Personnel qualifications, 21 CFR Part 11 compliance
+
+## Architecture
+
+Clarix is built as a monorepo with the following structure:
+
+```
+clarix/
+├── apps/
+│   ├── web          — Next.js dashboard (admin, management)
+│   ├── mobile       — React Native / Expo (iPad + Android)
+│   └── docs         — Documentation (you are here)
+├── packages/
+│   ├── auth         — Better Auth + RBAC
+│   ├── db           — Drizzle ORM + PostgreSQL
+│   ├── observability — Pino logging + OpenTelemetry
+│   └── utils        — Shared utilities (BUD calculator, etc.)
+```
+
+## Technology Stack
+
+| Layer | Technology |
+|-------|-----------|
+| **Frontend** | Next.js 16, React 19, React Native / Expo |
+| **Database** | PostgreSQL 17 (Supabase) |
+| **ORM** | Drizzle ORM |
+| **Auth** | Better Auth (email/password, session-based) |
+| **Observability** | Pino + OpenTelemetry |
+| **Build** | Turborepo + Bun |
+| **Deployment** | Cloud-agnostic (Vercel, Docker, on-premise) |
+
+## Regulatory Compliance
+
+Clarix is designed to comply with:
+
+- **21 CFR Part 11** — Electronic records and signatures
+- **USP \<797\>** — Sterile compounding standards
+- **cGMP** — Current good manufacturing practices
+- **FDA 503B** — Outsourcing facility requirements

@@ -1,0 +1,34 @@
+---
+title: Inventory
+description: Inventory and lot tracking for compounding materials
+---
+
+# Inventory
+
+Track raw materials, components, and finished goods with full lot traceability.
+
+## Features
+
+- **Lot tracking** with Certificate of Analysis (COA)
+- **FIFO enforcement** — system suggests oldest unexpired lot
+- **Expiry alerts** — automatic notifications for expiring materials
+- **Quarantine workflow** — new lots quarantined until QC release
+- **Low stock alerts** — notifications when below safety stock level
+- **Transaction ledger** — immutable record of all inventory movements
+
+## Lot Lifecycle
+
+```
+Received → Quarantined → Released → In Use → Consumed/Expired
+```
+
+## Business Rules
+
+| Rule | Description |
+|------|------------|
+| I1 | New lots enter as `quarantined` — cannot be used until released |
+| I2 | Only QC Tech or QA Manager can release lots |
+| I3 | COA required before release (if configured) |
+| I4 | FIFO enforced — technician must justify skipping older lots |
+| I5 | Expired lots auto-transition via daily cron job |
+| I6 | Quantity cannot go negative |

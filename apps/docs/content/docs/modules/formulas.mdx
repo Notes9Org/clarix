@@ -1,0 +1,52 @@
+---
+title: Master Formulas
+description: Recipe management with versioning, BOM, and approval workflows
+---
+
+# Master Formulas
+
+Master Formulation Records (MFRs) are the validated recipes from which every batch is compounded.
+
+## Concepts
+
+A formula consists of three major components:
+
+| Component | Description |
+|-----------|-------------|
+| **Header** | Name, strength, dosage form, USP category, storage conditions |
+| **Bill of Materials** | Ingredients with quantities, units, tolerance ranges |
+| **Step Definitions** | Ordered instructions with equipment, parameters, and signature requirements |
+
+## Formula Lifecycle
+
+```
+Draft → Approved → Superseded (when new version created)
+```
+
+## Versioning Rules
+
+1. Every edit to an approved formula creates a new version (v2, v3, ...)
+2. Batch records reference a specific formula version — immutable binding
+3. Only one version can be in `approved` status at a time
+4. `superseded` versions are read-only but fully viewable
+
+## Business Rules
+
+| Rule | Description |
+|------|-------------|
+| F1 | Only PIC can approve a formula (`draft` → `approved`) |
+| F2 | Approval requires e-signature with meaning "Approved for production" |
+| F3 | BOM quantities must have defined tolerance ranges |
+| F4 | Steps cannot have duplicate sequence numbers |
+| F5 | Equipment referenced must have `active` status and current calibration |
+| F6 | HD formulas must flag hazardous drug requirements |
+
+## BUD Categories
+
+| Category | CRT (20–25°C) | Refrigerated (2–8°C) | Frozen (≤ -20°C) |
+|:--------:|:--------------:|:--------------------:|:----------------:|
+| **1** | 12 hours | 12 hours | 12 hours |
+| **2** | 1 day | 4 days | 45 days |
+| **3** | 1 day | 4 days | 45 days* |
+
+*Category 3 allows extended dating with sterility testing.

@@ -1,0 +1,81 @@
+---
+title: cGMP Compliance
+description: Current Good Manufacturing Practice compliance
+---
+
+# cGMP Compliance
+
+Clarix supports compliance with 21 CFR Parts 210 and 211 — the FDA regulations governing Current Good Manufacturing Practice for drug manufacturing.
+
+## Key cGMP Areas
+
+### Production Controls (21 CFR 211.100–211.115)
+
+| Requirement | Clarix Implementation |
+|------------|----------------------|
+| Written procedures (SOPs) | Document control module with version control |
+| Master production records | Formula module with versioned MFRs |
+| Batch production records | Digital batch records with step-by-step execution |
+| Process validation | Protocol management in documents module |
+| Change control | Quality management change control workflow |
+
+### Laboratory Controls (21 CFR 211.160–211.176)
+
+| Requirement | Clarix Implementation |
+|------------|----------------------|
+| Testing and release | Lab samples module with pass/fail determinations |
+| Stability testing | Sample lifecycle with time-point tracking |
+| Reference standards | Equipment module tracks reference standard inventory |
+| OOS investigation | Quality module with structured investigation workflow |
+
+### Packaging and Labeling (21 CFR 211.122–211.137)
+
+| Requirement | Clarix Implementation |
+|------------|----------------------|
+| Label content | Auto-generated labels with required elements |
+| Label verification | Pharmacist verification step before printing |
+| Lot numbering | Auto-generated lot numbers with format control |
+| Expiry dating | BUD auto-calculated per USP category |
+
+### Records and Reports (21 CFR 211.180–211.198)
+
+| Requirement | Clarix Implementation |
+|------------|----------------------|
+| Batch records | Immutable digital batch records with full audit trail |
+| Distribution records | Planned: distribution tracking with lot traceability |
+| Complaint files | Adverse event reporting in quality module |
+| Annual product review | Quality management reporting module |
+
+### Personnel (21 CFR 211.25–211.34)
+
+| Requirement | Clarix Implementation |
+|------------|----------------------|
+| Qualification | Training module tracks all personnel qualifications |
+| Training | Competency assessments and SOP training tracking |
+| Supervision | Role-based access ensures appropriate oversight |
+| Hygiene | Garbing and gowning qualification tracking |
+
+### Equipment (21 CFR 211.63–211.72)
+
+| Requirement | Clarix Implementation |
+|------------|----------------------|
+| Calibration | Calibration scheduling and record tracking |
+| Maintenance | Preventive maintenance scheduling |
+| Cleaning | Cleaning logs with agent rotation |
+| Qualification | IQ/OQ/PQ documentation management |
+
+## Data Integrity (ALCOA+)
+
+Clarix's data architecture enforces ALCOA+ principles:
+
+| Principle | Implementation |
+|-----------|---------------|
+| **A**ttributable | Every record linked to authenticated user |
+| **L**egible | Digital records — no handwriting interpretation |
+| **C**ontemporaneous | Timestamps at point of action, not after the fact |
+| **O**riginal | Source records preserved, never overwritten |
+| **A**ccurate | Auto-validation, tolerance checking, barcode verification |
+| **C**omplete | Required fields enforced, no partial record submission |
+| **C**onsistent | Standardized workflows prevent variation |
+| **E**nduring | PostgreSQL with backup and retention policies |
+| **A**vailable | Full-text search, export, and on-demand access |

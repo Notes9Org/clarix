@@ -1,0 +1,51 @@
+---
+title: Health API
+description: System health check endpoint
+---
+
+# Health API
+
+## Health Check
+
+```http
+GET /api/health
+```
+
+Returns the operational status of all platform services.
+
+**Response:**
+```json
+{
+  "status": "healthy",
+  "timestamp": "2026-01-01T00:00:00.000Z",
+  "services": {
+    "database": "connected",
+    "auth": "operational"
+  },
+  "version": "0.0.3"
+}
+```
+
+### Status Values
+
+| Status | Description |
+|--------|-------------|
+| `healthy` | All services operational |
+| `degraded` | Some non-critical services unavailable |
+| `unhealthy` | Critical services down |
+
+### Service Checks
+
+| Service | Check |
+|---------|-------|
+| `database` | PostgreSQL connection test |
+| `auth` | Better Auth session validation |
+
+## Usage
+
+The health endpoint is unauthenticated and designed for:
+
+- Load balancer health checks
+- Uptime monitoring services
+- CI/CD deployment verification
+- Infrastructure alerting

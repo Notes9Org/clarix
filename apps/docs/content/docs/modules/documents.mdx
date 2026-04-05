@@ -1,0 +1,43 @@
+---
+title: Document Control
+description: SOP repository, version control, and approval workflows
+---
+
+# Document Control
+
+Manage all controlled documents — SOPs, work instructions, policies, and forms — with full version control and approval workflows.
+
+## Document Types
+
+| Type | Code | Description |
+|------|------|-------------|
+| Standard Operating Procedure | SOP | Step-by-step instructions for recurring activities |
+| Work Instruction | WI | Detailed instructions for a specific task |
+| Policy | POL | High-level organizational directives |
+| Form | FRM | Templates for data collection |
+| Protocol | PRO | Validation and qualification protocols |
+
+## Document Lifecycle
+
+```
+Draft → In Review → Approved → Effective → Superseded (when new version)
+                 ↘ Rejected (back to Draft)
+```
+
+## Approval Workflow
+
+1. **Author** creates or revises document → submits for review
+2. **Reviewer** (department head) reviews content → comments or approves
+3. **Approver** (PIC or QA Manager) final approval with e-signature
+4. **Distribution** — notifications sent to all users who require training on the document
+
+## Business Rules
+
+| Rule | Description |
+|------|-------------|
+| D1 | Only one version can be `approved` at a time |
+| D2 | Previous version auto-transitions to `superseded` on new approval |
+| D3 | All changes require change control documentation |
+| D4 | Periodic review required (configurable: 12, 24, or 36 months) |
+| D5 | Approval requires e-signature of different user than author |
+| D6 | Document numbers follow format: `TYPE-DEPT-SEQ` (e.g., SOP-QA-001) |

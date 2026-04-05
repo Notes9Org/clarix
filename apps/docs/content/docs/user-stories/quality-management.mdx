@@ -1,0 +1,244 @@
+---
+title: Quality Management
+description: User stories for deviations, CAPAs, document control, and quality oversight
+---
+
+# Quality Management
+
+Deviation tracking, CAPA management, and document control for regulatory compliance.
+
+## Deviations
+
+### US-Q01: Report a Deviation
+**As a** any user, **I want to** report a deviation when something departs from an approved procedure, **so that** the event is documented and enters the investigation pipeline.
+
+**Acceptance Criteria:**
+- Deviation form: title, description, severity (critical/major/minor), category
+- Link to source: batch #, equipment ID, EM sample, or "general"
+- Reporter identity captured automatically from session
+- Auto-assign to QA Manager for triage
+- Status starts as `open`
+- Notification sent to QA Manager + PIC (for critical)
+- Critical deviations trigger 24-hour CAPA requirement
+
+**Priority:** P1 | **Sprint:** 4
+
+---
+
+### US-Q02: Investigate a Deviation
+**As a** QA Manager (David), **I want to** conduct a root cause investigation with structured fields, **so that** we identify the true cause and prevent recurrence.
+
+**Acceptance Criteria:**
+- Investigation form: root cause, contributing factors, patient impact assessment
+- Root cause tools: 5-Why template, fishbone diagram fields
+- Attach evidence: photos, documents, batch records
+- Status transitions: `open` → `under_investigation` → `pending_capa`
+- Days-open counter auto-increments daily
+- Deviations open > 30 days escalate notification to VP
+
+**Priority:** P1 | **Sprint:** 4
+
+---
+
+### US-Q03: Close a Deviation
+**As a** QA Manager (David), **I want to** close a deviation after investigation and corrective actions are complete, **so that** the quality record is finalized.
+
+**Acceptance Criteria:**
+- All linked CAPAs must be closed or effectiveness-verified
+- Closure summary required
+- Status transitions to `closed`
+- E-signature: "Deviation investigation closed"
+- Patient-impacting deviations require PIC co-signature
+- Closure date recorded, deviation becomes read-only
+
+**Priority:** P1 | **Sprint:** 5
+
+---
+
+### US-Q04: View Deviation Dashboard
+**As a** QA Manager (David), **I want to** see a dashboard of all open deviations with aging indicators, **so that** I can prioritize investigations and prevent overdue items.
+
+**Acceptance Criteria:**
+- Table: deviation #, title, severity, source, days open, assigned to, status
+- Filter by severity, status, age, category
+- Aging indicators: < 15 days (normal), 15–30 days (warning), > 30 days (overdue)
+- Summary counts: open, under investigation, pending CAPA, closed
+- Trend chart: deviations opened/closed per month
+
+**Priority:** P1 | **Sprint:** 5
+
+---
+
+## CAPAs
+
+### US-Q05: Create a CAPA
+**As a** QA Manager (David), **I want to** create a Corrective and Preventive Action linked to a deviation, **so that** we systematically address root causes and prevent recurrence.
+
+**Acceptance Criteria:**
+- CAPA form: type (corrective/preventive), description, action plan, assigned to, due date
+- Link to source deviation (required)
+- Assigned-to user receives notification
+- Status starts as `initiated`
+- Due date auto-calculated based on severity (critical: 24h, major: 7d, minor: 30d)
+
+**Priority:** P1 | **Sprint:** 5
+
+---
+
+### US-Q06: Track CAPA Progress
+**As a** QA Manager (David), **I want to** track the progress of all CAPAs through their lifecycle, **so that** no action item falls through the cracks.
+
+**Acceptance Criteria:**
+- Status flow: `initiated` → `in_progress` → `pending_verification` → `closed`
+- Assigned user updates progress notes
+- Overdue CAPAs: auto-escalation notification
+- Completion evidence uploadable (retrained SOPs, new equipment, etc.)
+- Dashboard: all CAPAs with status, due date, days remaining/overdue
+
+**Priority:** P1 | **Sprint:** 5
+
+---
+
+### US-Q07: Verify CAPA Effectiveness
+**As a** QA Specialist, **I want to** verify that a completed CAPA was effective at preventing recurrence, **so that** we can close the action with confidence.
+
+**Acceptance Criteria:**
+- Effectiveness check: different user than person who completed the CAPA
+- Verification form: was the action implemented? Did similar deviations recur?
+- Evidence of effectiveness required (data, observations)
+- If effective → `closed`, if not effective → reopen with new action plan
+- E-signature: "Effectiveness verified"
+
+**Priority:** P1 | **Sprint:** 6
+
+---
+
+## Document Control
+
+### US-Q08: Create a Controlled Document
+**As a** QA Specialist, **I want to** create a new SOP, policy, or work instruction with version control, **so that** the facility has current, approved procedures.
+
+**Acceptance Criteria:**
+- Document types: SOP, Work Instruction, Policy, Form, Protocol
+- Required fields: title, document number, version, department, effective date
+- Upload document file (PDF, DOCX)
+- Status starts as `draft`
+- Version number auto-incremented
+
+**Priority:** P1 | **Sprint:** 6
+
+---
+
+### US-Q09: Approve a Document
+**As a** PIC (Sarah) or QA Manager (David), **I want to** review and approve a draft document, **so that** it becomes the official current version.
+
+**Acceptance Criteria:**
+- Reviewer can view document and add comments
+- Approval workflow: author → reviewer → approver
+- E-signature on approval: "Approved for use"
+- Previous version transitions to `superseded`
+- New version transitions to `approved` with effective date
+- Approved documents distributed to relevant personnel (notification)
+
+**Priority:** P1 | **Sprint:** 6
+
+---
+
+### US-Q10: Search Document Repository
+**As a** any user, **I want to** search for documents by title, number, or content, **so that** I can quickly find the current SOP for any procedure.
+
+**Acceptance Criteria:**
+- Search by: title, document number, keywords
+- Filter by: type, department, status, date range
+- Results show: title, number, version, status, effective date
+- Only `approved` versions shown by default (option to show all)
+- Click → view document detail with download link
+
+**Priority:** P1 | **Sprint:** 6
+
+---
+
+### US-Q11: Track Document Training
+**As a** Training Coordinator (Alex), **I want to** track which personnel have read and acknowledged each document, **so that** we can verify training completion.
+
+**Acceptance Criteria:**
+- When document approved → training assignments auto-created for relevant roles
+- Users see "Documents to acknowledge" in their notification center
+- Acknowledgment requires: read confirmation + e-signature
+- Training coordinator sees: % completion per document
+- Overdue acknowledgments trigger escalation
+
+**Priority:** P2 | **Sprint:** 7
+
+---
+
+## Quality Metrics
+
+### US-Q12: View Quality KPIs
+**As a** Executive (Chen), **I want to** see quality system KPIs on the executive dashboard, **so that** I can assess facility quality performance.
+
+**Acceptance Criteria:**
+- KPIs: open deviations, overdue CAPAs, critical deviation count, batch reject rate
+- Trend charts: deviations per month, CAPA closure rate
+- Deviation Pareto chart by category
+- Audit readiness score (composite metric)
+- Drill-down to detailed data
+
+**Priority:** P2 | **Sprint:** 7
+
+---
+
+### US-Q13: Adverse Event Reporting
+**As a** PIC (Sarah), **I want to** record and track adverse events or product complaints, **so that** we comply with FDA MedWatch reporting requirements.
+
+**Acceptance Criteria:**
+- Adverse event form: reporter, patient info, product, description, severity
+- Timeline: date reported, date of event, investigation start
+- Auto-link to batch record if product identified
+- Reportable events flagged for FDA submission
+- FDA reporting deadline tracker
+
+**Priority:** P2 | **Sprint:** 8
+
+---
+
+### US-Q14: Change Control
+**As a** QA Manager (David), **I want to** manage change requests through a formal change control process, **so that** facility changes are evaluated, approved, and documented.
+
+**Acceptance Criteria:**
+- Change request form: description, reason, impact assessment, proposed plan
+- Approval workflow: requestor → department head → QA → PIC
+- Impact categories: equipment, process, personnel, facility, document
+- Implementation tracking with checklist
+- Post-implementation review required
+
+**Priority:** P2 | **Sprint:** 8
+
+---
+
+### US-Q15: Supplier Quality Management
+**As a** QA Manager (David), **I want to** track supplier audit results and qualification status, **so that** vendor qualification is documented and current.
+
+**Acceptance Criteria:**
+- Supplier audit record: date, auditor, findings, classification
+- Qualification decision: approved, conditional, disqualified
+- Re-qualification schedule (annual)
+- Audit findings linked to CAPAs if needed
+- Supplier quality score calculated from: audit results, lot rejection rate, delivery performance
+
+**Priority:** P2 | **Sprint:** 8
+
+---
+
+### US-Q16: Annual Product Review
+**As a** QA Manager (David), **I want to** generate an annual product quality review report, **so that** we evaluate product quality trends and identify improvement opportunities.
+
+**Acceptance Criteria:**
+- Per-product analysis: batch yield, reject rate, deviation history, EM trends
+- Component quality: lot rejection rates by ingredient
+- Stability data summary (future)
+- Comparison year-over-year
+- Recommendations section
+- Report exportable as PDF
+
+**Priority:** P3 | **Sprint:** Backlog

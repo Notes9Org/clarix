@@ -1,0 +1,206 @@
+---
+title: Environmental Monitoring
+description: User stories for cleanroom monitoring, sampling, and excursion management
+---
+
+# Environmental Monitoring
+
+Monitor and document cleanroom conditions per USP &lt;797&gt; requirements.
+
+### US-E01: View Room Map
+**As a** QA Manager (David), **I want to** see a visual map of all cleanroom areas with their ISO classification and current EM status, **so that** I can identify problem areas at a glance.
+
+**Acceptance Criteria:**
+- Floor plan showing all classified rooms (ISO 5, 7, 8)
+- Status indicators per room: clean (no indicator), alert (outlined), action (bold)
+- Click room → sampling schedule and recent results
+- Rooms with overdue samples highlighted
+- Last cleaning date visible per room
+
+**Priority:** P1 | **Sprint:** 5
+
+---
+
+### US-E02: Define Sampling Schedule
+**As a** QA Manager (David), **I want to** define sampling frequencies and locations per room, **so that** environmental monitoring is systematic and compliant.
+
+**Acceptance Criteria:**
+- Per room: define sampling points on floor plan
+- Sampling types: viable air, viable surface, non-viable particle
+- Frequency: each production day, weekly, monthly
+- Schedule auto-generates due samples per day
+- Overdue samples trigger notifications to assigned microbiologist
+
+**Priority:** P1 | **Sprint:** 5
+
+---
+
+### US-E03: Collect EM Sample (iPad)
+**As a** Microbiologist, **I want to** record sample collection by scanning the room QR code and entering sample details, **so that** collection is documented and traceable.
+
+**Acceptance Criteria:**
+- Scan room QR code → confirms correct location
+- Select sample type and location point
+- Enter media lot number (scan barcode)
+- Timestamp auto-captured
+- Sample assigned tracking ID
+- E-signature: "Sample collected by"
+- Incubation start time recorded
+
+**Priority:** P1 | **Sprint:** 5
+
+---
+
+### US-E04: Enter EM Results
+**As a** Microbiologist, **I want to** enter viable count results after incubation, **so that** the system can check against alert and action limits.
+
+**Acceptance Criteria:**
+- Find sample by tracking ID or browse by date
+- Enter CFU count per sample
+- System auto-checks: CFU vs alert limit, CFU vs action limit
+- If exceeds alert → set `exceeds_alert = true`, notification to QA Manager
+- If exceeds action → set `exceeds_action = true`, auto-create excursion
+- E-signature on result entry
+
+**Priority:** P1 | **Sprint:** 5
+
+---
+
+### US-E05: Manage EM Excursion
+**As a** QA Manager (David), **I want to** investigate and manage environmental excursions that exceed action limits, **so that** corrective actions are taken and batches potentially affected are identified.
+
+**Acceptance Criteria:**
+- Excursion auto-created when action limit exceeded
+- Excursion record: room, sample, CFU count, limit exceeded
+- Auto-populate affected batches (same room, overlapping time window)
+- Investigation form with fields: root cause, corrective action, preventive action
+- Action-level excursions must link to formal deviation before closing
+- Excursion history visible per room
+
+**Priority:** P1 | **Sprint:** 6
+
+---
+
+### US-E06: View EM Trending
+**As a** QA Manager (David), **I want to** view trend charts of viable counts over time per room and sampling point, **so that** I can identify developing contamination patterns before they become action-level events.
+
+**Acceptance Criteria:**
+- Line chart: CFU count over time per sampling point
+- Alert and action limit lines displayed on chart
+- Filter by room, sample type, date range
+- Trend analysis: moving average, standard deviation bands
+- Data exportable for external analysis
+
+**Priority:** P2 | **Sprint:** 7
+
+---
+
+### US-E07: Track Incubation Periods
+**As a** Microbiologist, **I want to** track incubation periods for all active samples with timer alerts, **so that** I read plates at the correct time.
+
+**Acceptance Criteria:**
+- Dashboard shows all samples currently incubating
+- Timer countdown to read time (e.g., 48 hours at 30–35°C, then 5 days at 20–25°C)
+- Alert when incubation period complete — "Ready for reading"
+- Overdue readings highlighted
+- Temperature conditions displayed per sample type
+
+**Priority:** P1 | **Sprint:** 6
+
+---
+
+### US-E08: Non-Viable Particle Monitoring
+**As a** QA Manager (David), **I want to** record non-viable particle count data from particle counters, **so that** ISO classification compliance is documented.
+
+**Acceptance Criteria:**
+- Enter particle counts: 0.5μm and 5.0μm per cubic meter
+- Auto-check against ISO limits (5: 3,520/m³ at 0.5μm, 7: 352,000/m³)
+- Results linked to room and monitoring point
+- Exceedance creates alert + potential deviation
+- Trend charts for particle counts over time
+
+**Priority:** P2 | **Sprint:** 7
+
+---
+
+### US-E09: Temperature & Humidity Logging
+**As a** the system, **I want to** capture temperature and humidity readings for classified areas, **so that** environmental conditions are continuously documented.
+
+**Acceptance Criteria:**
+- Manual entry or sensor integration (future)
+- Per room: temperature range, humidity range, reading frequency
+- Out-of-range readings trigger immediate alert
+- Data logged with timestamp and recorder
+- Historical trend charts available
+
+**Priority:** P2 | **Sprint:** 8
+
+---
+
+### US-E10: View Sampling Calendar
+**As a** Microbiologist, **I want to** see a calendar of all due and completed samples for the current week, **so that** I can plan my sampling rounds.
+
+**Acceptance Criteria:**
+- Calendar view by day/week
+- Each entry shows: room, sampling point, sample type, status (due/complete)
+- Color coding: due (no fill), complete (filled), overdue (bold outline)
+- Click entry → collect sample or view result
+
+**Priority:** P1 | **Sprint:** 6
+
+---
+
+### US-E11: Generate EM Report
+**As a** QA Manager (David), **I want to** generate a monthly environmental monitoring report with trend analysis, **so that** I can present EM data during management review and inspections.
+
+**Acceptance Criteria:**
+- Report period: configurable date range
+- Includes: summary statistics, all results, excursions, trend charts
+- Room-by-room breakdown
+- Comparison against previous period
+- Exportable as PDF
+- Auto-generated monthly (configurable)
+
+**Priority:** P2 | **Sprint:** 8
+
+---
+
+### US-E12: Batch Impact Assessment
+**As a** QA Manager (David), **I want to** automatically identify batches that may be affected by an environmental excursion, **so that** I can evaluate product impact and make disposition decisions.
+
+**Acceptance Criteria:**
+- Given an excursion in Room X at Time T
+- System queries batches with: room_id = X AND in_progress during time window
+- Affected batches listed with status and product
+- QA Manager can add batch-specific impact assessment
+- Impact assessment recorded in both excursion and batch records
+
+**Priority:** P1 | **Sprint:** 6
+
+---
+
+### US-E13: Media Fill Qualification Tracking
+**As a** QA Manager (David), **I want to** track media fill qualification status for all compounding personnel, **so that** only qualified technicians are assigned to aseptic compounding.
+
+**Acceptance Criteria:**
+- Per technician: media fill date, result (pass/fail), expiry date
+- Automatic `media_fill_qualified = false` when expired
+- System blocks batch assignment for unqualified technicians
+- Re-qualification reminder 30 days before expiry
+- Media fill history maintained per user
+
+**Priority:** P1 | **Sprint:** 5
+
+---
+
+### US-E14: Garbing Qualification Tracking
+**As a** QA Manager (David), **I want to** track garbing qualification status per personnel, **so that** only properly trained staff enter classified areas.
+
+**Acceptance Criteria:**
+- Garbing qualification record: date, assessor, result, expiry
+- `garbing_qualified` flag on user profile
+- System blocks cleanroom access for unqualified personnel
+- Annual re-qualification requirement
+- Fingerprint/glove tip testing results recordable
+
+**Priority:** P1 | **Sprint:** 5

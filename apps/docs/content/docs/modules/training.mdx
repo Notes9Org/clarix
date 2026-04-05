@@ -1,0 +1,45 @@
+---
+title: Training Records
+description: Personnel qualification, training management, and compliance tracking
+---
+
+# Training Records
+
+Manage all personnel qualifications, training assignments, and regulatory compliance tracking.
+
+## Concepts
+
+| Concept | Description |
+|---------|-------------|
+| **Training Requirement** | A defined training item mapped to roles (e.g., "SOP-001 must be read by all pharmacists") |
+| **Training Assignment** | An instance of a requirement assigned to a specific user with a due date |
+| **Competency Assessment** | A practical skills evaluation (e.g., aseptic technique, garbing) |
+| **Qualification** | A time-limited credential (e.g., media fill, 6-month validity) |
+
+## Training Lifecycle
+
+```
+Requirement Defined → Auto-Assigned to Roles → User Completes → Acknowledged (e-signed)
+                                                                      ↓
+                                                              Document Updated → Re-Assignment
+```
+
+## Qualification Types
+
+| Type | Validity | Re-qualification |
+|------|----------|-----------------|
+| Media Fill | 6 months | Two consecutive passes required |
+| Garbing | 12 months | Annual assessment |
+| Aseptic Technique | 12 months | Annual practical + written |
+| SOP Training | Until document updated | Re-read on new version |
+| Equipment Operation | 12 months | Annual competency check |
+
+## Business Rules
+
+| Rule | Description |
+|------|-------------|
+| TR1 | Users cannot access production modules until onboarding training complete |
+| TR2 | Expired media fill qualification blocks batch assignment |
+| TR3 | Document approval triggers auto re-training for all users trained on previous version |
+| TR4 | Two consecutive media fill failures → removed from sterile compounding until retrained |
+| TR5 | Training records are immutable — new entries append, never modify |

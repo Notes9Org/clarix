@@ -1,0 +1,370 @@
+---
+title: Batch Compounding
+description: User stories for batch record creation, execution, review, and release
+---
+
+# Batch Compounding
+
+The core workflow of any 503B facility — from formula creation to batch release.
+
+## Formula Management
+
+### US-B01: Create Master Formula
+**As a** Pharmacist in Charge (Sarah), **I want to** create a new master formulation record with step-by-step instructions, component BOM, and parameter tolerances, **so that** technicians have a validated, repeatable recipe to compound from.
+
+**Acceptance Criteria:**
+- Formula includes: name, strength, dosage form, BUD category, storage conditions
+- Steps are ordered with instructions, expected durations, and required equipment
+- Component BOM lists each ingredient with quantity, unit, and tolerance range
+- Formula starts in `draft` status — requires PIC signature to move to `approved`
+- Version number auto-increments on each edit
+- Previous versions are preserved and viewable
+- Audit trail records creation with user, timestamp, and all field values
+
+**Priority:** P0 | **Sprint:** 1
+
+---
+
+### US-B02: Version a Formula
+**As a** Pharmacist (under Sarah's supervision), **I want to** create a new version of an existing formula when a change is needed, **so that** we maintain a complete version history and can trace which formula version each batch was compounded from.
+
+**Acceptance Criteria:**
+- New version copies all fields from current approved version
+- Previous version transitions to `superseded` status
+- New version starts in `draft` — requires PIC approval
+- Batch records reference a specific formula version (immutable)
+- Change reason is required and recorded in audit trail
+
+**Priority:** P0 | **Sprint:** 2
+
+---
+
+### US-B03: Approve a Formula
+**As a** PIC (Sarah), **I want to** review and electronically sign a draft formula to approve it for production use, **so that** only validated formulas can be used for compounding.
+
+**Acceptance Criteria:**
+- PIC can view all fields, components, and steps side-by-side
+- Approval requires e-signature (PIN + biometric on iPad)
+- Status transitions: `draft` → `approved`
+- Only PIC role can approve formulas (enforced by system)
+- E-signature record includes: signer name, role, meaning ("Approved for production"), timestamp
+
+**Priority:** P0 | **Sprint:** 2
+
+---
+
+## Batch Scheduling
+
+### US-B04: Schedule a Batch
+**As a** Production Manager (James), **I want to** create a batch from an approved formula, assign it to a date, room, and technician, **so that** I can manage the production schedule and resource allocation.
+
+**Acceptance Criteria:**
+- Batch references a specific approved formula version
+- Required fields: scheduled date, assigned room, assigned technician
+- System validates: room is available, technician is qualified, equipment is calibrated
+- Batch starts in `scheduled` status
+- Batch number auto-generated: `ORG-YYYYMMDD-SEQ`
+- Calendar view shows all scheduled batches by room/day
+
+**Priority:** P0 | **Sprint:** 2
+
+---
+
+### US-B05: View Production Calendar
+**As a** Production Manager (James), **I want to** see a calendar view of all scheduled, in-progress, and pending-review batches, **so that** I can optimize throughput and identify scheduling conflicts.
+
+**Acceptance Criteria:**
+- Calendar displays batches by room and date
+- Color coding by status: scheduled (gray), in-progress (white), pending-review (outlined)
+- Click a batch to view details
+- Drag-and-drop to reschedule (scheduled batches only)
+- Technician workload visible per day
+
+**Priority:** P1 | **Sprint:** 4
+
+---
+
+## Batch Execution (iPad)
+
+### US-B06: Start a Batch
+**As a** Compounding Technician (Maria), **I want to** open my assigned batch on the iPad and begin execution, **so that** I can follow the guided workflow inside the cleanroom.
+
+**Acceptance Criteria:**
+- Login screen with large PIN pad + FaceID (gloved hands)
+- "My Batches" shows only batches assigned to Maria for today
+- Tap batch → system checks: Maria is qualified, room is clean, equipment is calibrated
+- If checks pass → batch transitions to `in_progress`
+- If checks fail → block start, show reason (e.g., "Media fill expired")
+- E-signature required to begin ("Commenced compounding")
+
+**Priority:** P0 | **Sprint:** 1
+
+---
+
+### US-B07: Execute a Batch Step
+**As a** Compounding Technician (Maria), **I want to** follow each step one at a time with guided instructions, input fields, and validation, **so that** I execute the recipe correctly and the system captures everything for the batch record.
+
+**Acceptance Criteria:**
+- One step per screen — large text, large input fields for gloved hands
+- Step displays: instruction, expected value, tolerance range, required equipment
+- Numeric inputs auto-check against tolerance and flag out-of-spec
+- Photo capture available for visual documentation
+- Timer function for timed steps (e.g., mixing duration)
+- Steps execute in sequence — cannot skip ahead
+- Each step requires e-signature on completion
+- If tolerance exceeded → prompt for deviation creation
+
+**Priority:** P0 | **Sprint:** 1
+
+---
+
+### US-B08: Scan Component Barcode
+**As a** Compounding Technician (Maria), **I want to** scan the barcode of each raw material I use, **so that** the system automatically verifies it is the correct ingredient, is not expired, and is from a released lot.
+
+**Acceptance Criteria:**
+- Full-screen camera viewfinder for barcode scanning
+- Scan auto-populates: item name, lot number, expiry date, quantity available
+- System validates: lot is `released`, not expired, matches expected component
+- If validation fails → block usage, show error with reason
+- Scanned lot/quantity recorded in `batch_components_used`
+- FIFO warning if a newer lot is scanned when an older one is available
+
+**Priority:** P0 | **Sprint:** 2
+
+---
+
+### US-B09: Record Weight/Measurement
+**As a** Compounding Technician (Maria), **I want to** enter a weight or volume measurement with automatic tolerance checking, **so that** out-of-spec readings are immediately flagged.
+
+**Acceptance Criteria:**
+- Large numeric keypad for input
+- Display shows: target value, tolerance low, tolerance high
+- Green indicator if within range, red if out of range
+- Out-of-spec values require: acknowledgment, deviation creation, supervisor notification
+- Tare weight and net weight fields for gravimetric steps
+- Unit conversion support (mg ↔ g, mL ↔ L)
+
+**Priority:** P0 | **Sprint:** 2
+
+---
+
+### US-B10: Capture E-Signature (iPad)
+**As a** any user on iPad, **I want to** provide my electronic signature via PIN + biometric, **so that** my identity is verified and bound to the specific action I'm performing.
+
+**Acceptance Criteria:**
+- Full-screen modal shows: signer name, role, action meaning, timestamp
+- PIN pad with large buttons (cleanroom gloves)
+- FaceID/TouchID as secondary factor
+- Signature record is immutable (INSERT-only)
+- Failed attempts logged with IP + device info
+- 5 failed attempts → account lockout for 30 minutes
+
+**Priority:** P0 | **Sprint:** 1
+
+---
+
+### US-B11: Handle Offline Mode
+**As a** Compounding Technician (Maria), **I want to** continue executing batch steps even if network connectivity drops inside the cleanroom, **so that** production is not interrupted by network issues.
+
+**Acceptance Criteria:**
+- Persistent banner shows "Offline — data will sync when connected"
+- All step data saved to local device storage
+- Auto-sync when connectivity restored
+- Conflict resolution: server timestamp wins if same step modified
+- Sync status indicator shows pending uploads
+- Critical alert if sync fails after 3 retries
+
+**Priority:** P2 | **Sprint:** 7
+
+---
+
+## Batch Review & Release
+
+### US-B12: Submit Batch for Review
+**As a** Compounding Technician (Maria), **I want to** submit a completed batch for QA review after all steps are executed, **so that** the batch enters the quality review pipeline.
+
+**Acceptance Criteria:**
+- All steps must be `completed` before submission
+- All required e-signatures must be present
+- System auto-calculates BUD date from formula category + compounding date
+- Batch transitions to `pending_review`
+- Notification sent to QA Manager
+- Technician can no longer modify the batch record
+
+**Priority:** P0 | **Sprint:** 3
+
+---
+
+### US-B13: Review a Batch Record
+**As a** QA Manager (David), **I want to** review the complete batch record side-by-side with the master formula, **so that** I can verify every step was executed correctly and within specification.
+
+**Acceptance Criteria:**
+- Split-screen view: master formula (left) vs actual execution (right)
+- Discrepancies highlighted in red
+- All signatures, photos, and readings viewable
+- Linked deviations visible with status
+- Lab sample results displayed (if available)
+- Reviewer can add comments per step
+- Approve → `pending_release` or Reject → `rejected` with required reason
+- E-signature required for review decision
+
+**Priority:** P0 | **Sprint:** 3
+
+---
+
+### US-B14: Release a Batch
+**As a** PIC (Sarah), **I want to** perform final release of a reviewed batch, **so that** the product can be labeled, packaged, and distributed.
+
+**Acceptance Criteria:**
+- Only PIC can release (system-enforced)
+- Batch must be in `pending_release` status
+- All linked deviations must be closed or dispositioned
+- Lab results (sterility, endotoxin) must be `passed`
+- Release transitions batch to `released`
+- E-signature: "Released for distribution"
+- Label generation triggered with: product name, strength, lot #, BUD, storage
+- Separation of duties enforced: reviewer ≠ releaser
+
+**Priority:** P0 | **Sprint:** 3
+
+---
+
+### US-B15: Reject a Batch
+**As a** QA Manager (David), **I want to** reject a batch that does not meet quality standards, **so that** it is quarantined and investigated.
+
+**Acceptance Criteria:**
+- Rejection reason is required (free text + category select)
+- Batch transitions to `rejected`
+- Notification sent to Production Manager + PIC
+- Deviation auto-created and linked to batch
+- Rejected batch cannot be modified or re-released
+- Disposal workflow initiated (if applicable)
+
+**Priority:** P1 | **Sprint:** 4
+
+---
+
+## Batch Operations
+
+### US-B16: View Batch Pipeline
+**As a** Production Manager (James), **I want to** see all batches in a kanban-style pipeline view grouped by status, **so that** I can track production flow at a glance.
+
+**Acceptance Criteria:**
+- Columns: Draft, Scheduled, In Progress, Pending Review, Pending Release, Released
+- Each card shows: batch #, product name, technician, date
+- Filter by date range, product, technician
+- Click card → batch detail page
+
+**Priority:** P1 | **Sprint:** 4
+
+---
+
+### US-B17: View Batch History
+**As a** PIC (Sarah), **I want to** view the complete history of a released batch including all steps, signatures, deviations, and lab results, **so that** I can provide the batch record to FDA inspectors on demand.
+
+**Acceptance Criteria:**
+- Single page with complete batch record
+- Printable/exportable as PDF
+- Includes: all step data, photos, measurements, signatures, timestamps
+- Linked documents: formula version, COAs, deviation reports
+- Audit trail of all record access visible
+
+**Priority:** P0 | **Sprint:** 3
+
+---
+
+### US-B18: Witness a Critical Step
+**As a** Pharmacist, **I want to** witness and co-sign a critical compounding step performed by a technician, **so that** dual verification requirements are met per USP 797.
+
+**Acceptance Criteria:**
+- System identifies witness-required steps from formula definition
+- Step blocks progression until witness signature captured
+- Witness must be a different user than the performer
+- Witness scans their badge or enters PIN on same iPad
+- Both signatures recorded with roles and timestamps
+
+**Priority:** P1 | **Sprint:** 4
+
+---
+
+### US-B19: Auto-Calculate BUD
+**As a** the system, **I want to** automatically calculate the Beyond-Use Date based on the formula's USP category and storage conditions, **so that** BUD assignment is consistent and compliant.
+
+**Acceptance Criteria:**
+- Category 1: 12 hours (all conditions)
+- Category 2: 1 day (CRT), 4 days (refrigerated), 45 days (frozen)
+- Category 3: 1 day (CRT), 4 days (refrigerated), 45 days (frozen) — with sterility testing extensions
+- BUD = compounding date + category-based duration
+- BUD displayed on batch record and label
+- Cannot be manually overridden without PIC signature + deviation
+
+**Priority:** P0 | **Sprint:** 2
+
+---
+
+### US-B20: Flag Hazardous Drug Batch
+**As a** Production Manager (James), **I want to** flag a batch as containing hazardous drugs (HD), **so that** the system enforces additional safety requirements for assigned personnel.
+
+**Acceptance Criteria:**
+- HD flag set at formula level, inherited by batch
+- System blocks assignment to technicians without `hd_trained = true`
+- HD batches require: C-PEC equipment, HD-specific PPE checklist
+- Visual HD indicator on batch card (⚠ icon)
+- Separate HD room validation
+
+**Priority:** P1 | **Sprint:** 5
+
+---
+
+### US-B21: Track Component Consumption
+**As a** the system, **I want to** record every component consumed during batch execution with lot traceability, **so that** we can trace any product back to its source materials.
+
+**Acceptance Criteria:**
+- Each scanned component creates a `batch_components_used` record
+- Record includes: lot number, quantity used, timestamp, who scanned
+- Inventory auto-decremented on batch completion
+- Full forward/backward traceability: component lot → batch → distributed product
+- Recall simulation: given a lot number, list all affected batches
+
+**Priority:** P0 | **Sprint:** 2
+
+---
+
+### US-B22: Generate Batch Label
+**As a** the system, **I want to** auto-generate a compliant product label after batch release, **so that** labeling is accurate and meets ASTM/FDA requirements.
+
+**Acceptance Criteria:**
+- Label includes: product name, strength, lot #, BUD, storage, NDC (if applicable)
+- Barcode/QR code for traceability
+- Pharmacist verification before printing
+- Label template configurable per product type
+- Print integration (future)
+
+**Priority:** P1 | **Sprint:** 5
+
+---
+
+### US-B23: Perform Batch Recall Simulation
+**As a** QA Manager (David), **I want to** run a mock recall by entering a lot number and seeing all affected batches and distribution, **so that** we can demonstrate recall capability to FDA inspectors.
+
+**Acceptance Criteria:**
+- Input: component lot number or batch number
+- Output: all downstream batches, quantities, distribution dates
+- Recall report exportable as PDF
+- Includes contact information for recipients (future)
+- Mock recall drill logged in audit trail
+
+**Priority:** P2 | **Sprint:** 8
+
+---
+
+### US-B24: Duplicate a Batch
+**As a** Production Manager (James), **I want to** create a new batch by duplicating an approved batch's configuration (formula, room, quantities), **so that** repeat production is fast and error-free.
+
+**Acceptance Criteria:**
+- Clone batch creates new batch with same formula version, room, quantities
+- New batch gets new batch number and scheduled date
+- Technician assignment defaults to original but can be changed
+- Clone is independent — editing does not affect original
+
+**Priority:** P2 | **Sprint:** 6

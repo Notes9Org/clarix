@@ -1,0 +1,126 @@
+---
+title: Reports & Analytics
+description: User stories for executive dashboards, operational reporting, and data analysis
+---
+
+# Reports & Analytics
+
+Executive visibility, operational metrics, and regulatory reporting.
+
+### US-R01: Executive Dashboard
+**As an** Executive (Chen), **I want to** view a single-page executive dashboard with facility KPIs, **so that** I can assess operations without drilling into individual modules.
+
+**Acceptance Criteria:**
+- KPIs: batch yield rate, on-time delivery, open deviations, CAPA closure rate
+- Quality index: composite score from deviations, EM, training compliance
+- Production metrics: batches completed this month, throughput vs target
+- Financial indicators: cost per batch, waste percentage (future)
+- Trend sparklines for each KPI (30-day)
+- Drill-down: click any KPI → detailed module view
+
+**Priority:** P2 | **Sprint:** 7
+
+---
+
+### US-R02: Batch Yield Report
+**As a** Production Manager (James), **I want to** view batch yield trends over time by product, **so that** I can identify products with consistently low yields for investigation.
+
+**Acceptance Criteria:**
+- Report: actual yield vs theoretical yield per batch
+- Group by product, date range
+- Chart: yield % trend line with target line
+- Table: batch #, product, theoretical, actual, yield %, status
+- Filter by product, date range, technician
+- Export as CSV/PDF
+
+**Priority:** P2 | **Sprint:** 7
+
+---
+
+### US-R03: Deviation Pareto Analysis
+**As a** QA Manager (David), **I want to** see a Pareto chart of deviation categories, **so that** I can focus improvement efforts on the most frequent root causes.
+
+**Acceptance Criteria:**
+- Pareto chart: deviation categories sorted by frequency
+- 80/20 line indicator
+- Filter by severity, date range, product, room
+- Secondary dimension: root cause category
+- Data table below chart with counts and percentages
+
+**Priority:** P2 | **Sprint:** 7
+
+---
+
+### US-R04: EM Trending Report
+**As a** QA Manager (David), **I want to** generate environmental monitoring trend reports per room, **so that** I can identify rooms with deteriorating environmental conditions.
+
+**Acceptance Criteria:**
+- Per-room viable count trends over selectable time range
+- Overlay alert and action limits
+- Statistical analysis: mean, standard deviation, trend direction
+- Excursion markers on timeline
+- Comparison across rooms
+- Export as PDF with charts
+
+**Priority:** P2 | **Sprint:** 8
+
+---
+
+### US-R05: Training Compliance Dashboard
+**As a** Training Coordinator (Alex), **I want to** see a visual dashboard of training compliance rates, **so that** I can identify departments and individuals that need attention.
+
+**Acceptance Criteria:**
+- Overall compliance %: trained + acknowledged / total assigned
+- Heatmap: departments × training categories
+- Non-compliant user list with overdue items
+- Trend: compliance % over time
+- Upcoming expirations (next 30 days)
+
+**Priority:** P2 | **Sprint:** 8
+
+---
+
+### US-R06: Inventory Health Report
+**As a** Warehouse Clerk (Tom) or Procurement Manager, **I want to** view inventory health metrics, **so that** I can optimize stock levels and minimize waste.
+
+**Acceptance Criteria:**
+- Metrics: stock value, items expiring in 30/60/90 days, waste (expired + disposed)
+- Turnover rate per item category
+- FIFO compliance percentage
+- Vendor delivery performance
+- Stockout events over time
+
+**Priority:** P2 | **Sprint:** 8
+
+---
+
+### US-R07: Audit Readiness Score
+**As an** Admin or Executive (Chen), **I want to** see a composite audit readiness score, **so that** I know if we're prepared for an FDA inspection.
+
+**Acceptance Criteria:**
+- Score components:
+  - Open deviations (0 = 100%)
+  - Overdue CAPAs (0 = 100%)
+  - Training compliance (>95% = 100%)
+  - Equipment calibration (all current = 100%)
+  - EM compliance (no excursions = 100%)
+- Composite score: weighted average (configurable weights)
+- Red/yellow/green indicators per component
+- Historical trend of readiness score
+
+**Priority:** P2 | **Sprint:** 8
+
+---
+
+### US-R08: FDA 503B Reporting
+**As a** PIC (Sarah), **I want to** generate the required semi-annual FDA 503B report with all compounded products, **so that** we comply with DQSA reporting requirements.
+
+**Acceptance Criteria:**
+- Report format: per FDA 503B reporting template
+- Data: all products compounded in period, quantities, distribution
+- Adverse event summary
+- Drug supply reporting (shortage list)
+- Exportable in FDA-accepted format
+- Reminder notification 30 days before due date
+
+**Priority:** P2 | **Sprint:** 8

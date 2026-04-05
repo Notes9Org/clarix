@@ -1,0 +1,87 @@
+---
+title: Auth API
+description: Authentication API endpoints
+---
+
+# Auth API
+
+All authentication is handled through the Better Auth API at `/api/auth/*`.
+
+## Endpoints
+
+### Sign Up
+
+```http
+POST /api/auth/sign-up/email
+Content-Type: application/json
+
+{
+  "name": "Sarah Chen",
+  "email": "sarah@pharma.com",
+  "password": "securepassword"
+}
+```
+
+### Sign In
+
+```http
+POST /api/auth/sign-in/email
+Content-Type: application/json
+
+{
+  "email": "sarah@pharma.com",
+  "password": "securepassword"
+}
+```
+
+### Get Session
+
+```http
+GET /api/auth/get-session
+Cookie: better-auth.session_token=...
+```
+
+### Sign Out
+
+```http
+POST /api/auth/sign-out
+Cookie: better-auth.session_token=...
+```
+
+## Admin API
+
+### List Users (admin only)
+
+```http
+GET /api/admin/users
+```
+
+### Update User Role (admin only)
+
+```http
+PATCH /api/admin/users
+Content-Type: application/json
+
+{
+  "userId": "uuid",
+  "role": "qa_manager"
+}
+```
+
+### List Organizations
+
+```http
+GET /api/admin/organizations
+```
+
+### Create Organization
+
+```http
+POST /api/admin/organizations
+Content-Type: application/json
+
+{
+  "name": "Acme Pharma",
+  "slug": "acme-pharma"
+}
+```

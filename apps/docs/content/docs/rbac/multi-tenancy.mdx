@@ -1,0 +1,54 @@
+---
+title: Multi-Tenancy
+description: How Clarix handles multi-tenant organization isolation
+---
+
+# Multi-Tenancy
+
+Clarix is a **multi-tenant platform** where each organization (503B pharmacy) operates in complete data isolation.
+
+## Data Model
+
+Every domain table includes an `organization_id` foreign key. All queries are scoped to the user's active organization.
+
+```
+User → belongs to → Organization
+Organization → contains → Batches, Inventory, Equipment, etc.
+Session → has → active_organization_id
+```
+
+## Current Implementation
+
+| Aspect | Status |
+|--------|--------|
+| Org-scoped tables | ✅ All 20+ domain tables have `organization_id` FK |
+| Session org context | ✅ `session.active_organization_id` |
+| Auto-assign to org | ✅ New users auto-assigned to default org |
+| Membership table | 🔜 Planned (organization_member) |
+| Org switching | 🔜 Planned |
+| RLS policies | 🔜 Planned |
+
+## Organization Entity
+
+Each organization stores:
+
+- **Name** and **slug** (URL-friendly identifier)
+- **License number** (state pharmacy license)
+- **DEA number** (Drug Enforcement Administration)
+- **Settings** (JSONB — timezone, feature flags, branding)
+- **Address** and contact information
+
+## Future: Membership Table
+
+The roadmap includes an `organization_member` table that will:
+
+- Allow users to belong to multiple organizations
+- Store role per-organization (not globally on user)
+- Enable invitation/accept flows
+- Support org switching in the UI
+
+## Isolation Guarantees
+
+1. **App-level scoping** — Middleware injects `organization_id` from session
+2. **FK constraints** — All domain tables reference `organization.id`
+3. **Planned RLS** — Postgres Row-Level Security as defense-in-depth

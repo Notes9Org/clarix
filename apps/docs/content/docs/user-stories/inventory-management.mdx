@@ -1,0 +1,267 @@
+---
+title: Inventory Management
+description: User stories for receiving, lot tracking, stock management, and vendor qualification
+---
+
+# Inventory Management
+
+Full lifecycle management of raw materials, components, and finished goods.
+
+## Receiving
+
+### US-I01: Receive a Shipment
+**As a** Warehouse Clerk (Tom), **I want to** receive incoming shipments by scanning barcodes and recording quantities, **so that** all materials are properly documented and quarantined upon arrival.
+
+**Acceptance Criteria:**
+- Scan shipment barcode → auto-populate vendor, PO number, expected items
+- Enter received quantity per item (must match or note discrepancy)
+- Upload photo of shipment and packing slip
+- All received lots start in `quarantined` status
+- Lot number, manufacture date, expiry date captured per item
+- Receiving record creates `inventory_transaction` (type: `received`)
+- Notification sent to QC for COA review
+
+**Priority:** P0 | **Sprint:** 3
+
+---
+
+### US-I02: Upload Certificate of Analysis
+**As a** QC Technician (Lisa), **I want to** upload and verify the Certificate of Analysis (COA) for a received lot, **so that** the lot can be evaluated for release.
+
+**Acceptance Criteria:**
+- Upload COA as PDF or image
+- COA linked to specific lot record
+- `coa_verified` checkbox with verifier signature
+- Lot cannot be released without verified COA (if `requires_coa = true`)
+- COA document stored with full audit trail
+
+**Priority:** P0 | **Sprint:** 3
+
+---
+
+### US-I03: Release a Lot
+**As a** QC Technician (Lisa) or QA Manager (David), **I want to** release a quarantined lot after reviewing the COA and test results, **so that** the material becomes available for production use.
+
+**Acceptance Criteria:**
+- Only QC Tech or QA Manager can release (role-enforced)
+- Lot status transitions: `quarantined` → `released`
+- Requires e-signature with meaning "Released for use"
+- Release date and releaser recorded
+- Released lots visible in production component selection
+
+**Priority:** P0 | **Sprint:** 3
+
+---
+
+### US-I04: Reject a Lot
+**As a** QA Manager (David), **I want to** reject a quarantined lot that fails quality checks, **so that** it cannot be used in production.
+
+**Acceptance Criteria:**
+- Lot status transitions to `rejected`
+- Rejection reason required
+- Rejected lots cannot be selected for batch compounding
+- Notification sent to Procurement for vendor follow-up
+- Disposal or return-to-vendor workflow initiated
+
+**Priority:** P1 | **Sprint:** 4
+
+---
+
+## Stock Management
+
+### US-I05: View Inventory Dashboard
+**As a** Warehouse Clerk (Tom), **I want to** see a real-time dashboard of all inventory levels with expiry and reorder alerts, **so that** I can proactively manage stock.
+
+**Acceptance Criteria:**
+- Table view: item name, SKU, category, total quantity, safety stock level
+- Status indicators: adequate (no indicator), low (outlined), critical (bold)
+- Filter by category, vendor, expiry range
+- Sort by quantity, expiry date, last received
+- Click item → detail page with lot breakdown
+
+**Priority:** P0 | **Sprint:** 3
+
+---
+
+### US-I06: FIFO Enforcement
+**As a** the system, **I want to** enforce First-In-First-Out lot selection during batch compounding, **so that** materials are used before they expire.
+
+**Acceptance Criteria:**
+- When technician scans a component, system checks if older lots exist
+- If older unexpired lot available → warning: "Older lot LOT-XXXX available (expires DATE)"
+- Technician must provide justification to skip older lot
+- Justification recorded in batch record
+- Skip-FIFO events logged in audit trail
+
+**Priority:** P1 | **Sprint:** 4
+
+---
+
+### US-I07: Low Stock Alert
+**As a** Procurement Manager, **I want to** receive automatic notifications when inventory items fall below safety stock levels, **so that** I can reorder before stockouts impact production.
+
+**Acceptance Criteria:**
+- Each item has configurable `safety_stock_level`
+- Alert triggered when `quantity_available < safety_stock_level`
+- Notification sent to Procurement Manager + Production Manager
+- Alert visible on inventory dashboard
+- Reorder suggestion includes: item, current quantity, safety stock, avg consumption rate
+
+**Priority:** P1 | **Sprint:** 5
+
+---
+
+### US-I08: Auto-Expire Lots
+**As a** the system, **I want to** automatically transition expired lots to `expired` status via a daily check, **so that** expired materials cannot be used in production.
+
+**Acceptance Criteria:**
+- Daily cron job at midnight: check all lots where `expiry_date < today`
+- Matching lots transition to `expired` status
+- Notification sent to Warehouse Clerk + QA Manager
+- Expired lots excluded from production component selection
+- Expiry events logged in audit trail
+
+**Priority:** P0 | **Sprint:** 3
+
+---
+
+### US-I09: Perform Physical Inventory Count
+**As a** Warehouse Clerk (Tom), **I want to** conduct periodic physical inventory counts and reconcile with system quantities, **so that** we maintain accurate inventory records.
+
+**Acceptance Criteria:**
+- Create count session: select items or full count
+- Enter counted quantities per lot
+- System calculates variance (counted vs system)
+- Variance > threshold → flag for investigation
+- Adjustment transactions created with supervisor approval
+- Count history maintained for audit
+
+**Priority:** P2 | **Sprint:** 7
+
+---
+
+### US-I10: Track Inventory Transactions
+**As a** QA Manager (David), **I want to** view the complete transaction ledger for any inventory item or lot, **so that** I can trace all material movements for regulatory compliance.
+
+**Acceptance Criteria:**
+- Transaction types: received, released, consumed, adjusted, expired, returned
+- Each transaction: timestamp, user, quantity, lot, reference (batch # or PO #)
+- Transactions are INSERT-only — immutable
+- Filter by item, lot, date range, transaction type
+- Exportable as CSV for analysis
+
+**Priority:** P0 | **Sprint:** 3
+
+---
+
+## Vendor Management
+
+### US-I11: Manage Vendors
+**As a** Procurement Manager, **I want to** maintain a vendor registry with qualification status and contact information, **so that** we only purchase from approved suppliers.
+
+**Acceptance Criteria:**
+- Vendor record: name, code, contact, address, qualification status
+- Qualification statuses: `pending`, `approved`, `conditional`, `disqualified`
+- Only `approved` or `conditional` vendors selectable on purchase orders
+- Vendor qualification documents uploadable (certificates, audits)
+- Annual re-qualification reminder
+
+**Priority:** P1 | **Sprint:** 5
+
+---
+
+### US-I12: Vendor Performance Tracking
+**As a** QA Manager (David), **I want to** track vendor performance metrics (lot rejections, delivery time, COA accuracy), **so that** I can make informed supplier qualification decisions.
+
+**Acceptance Criteria:**
+- Auto-calculated metrics from inventory data: reject rate, avg lead time
+- Dashboard view per vendor
+- Trend charts over time
+- Flag vendors with reject rate > threshold
+- Performance data available during re-qualification review
+
+**Priority:** P2 | **Sprint:** 8
+
+---
+
+## Advanced
+
+### US-I13: Hazardous Material Tracking
+**As a** Warehouse Clerk (Tom), **I want to** flag items as hazardous and enforce special handling requirements, **so that** HD materials are stored and handled per NIOSH guidelines.
+
+**Acceptance Criteria:**
+- HD flag on inventory item record
+- HD items require: separate storage location, HD-trained personnel for handling
+- HD receiving requires additional PPE checklist
+- HD inventory visible in separate filtered view
+
+**Priority:** P2 | **Sprint:** 7
+
+---
+
+### US-I14: Manage Storage Conditions
+**As a** Warehouse Clerk (Tom), **I want to** assign and track storage conditions (CRT, refrigerated, frozen) per item, **so that** materials are stored correctly and BUD calculations are accurate.
+
+**Acceptance Criteria:**
+- Storage condition assigned per item: `crt` (20–25°C), `refrigerated` (2–8°C), `frozen` (≤ -20°C)
+- Temperature monitoring integration (future)
+- Storage condition used in BUD calculation for batch records
+- Mismatched storage flagged during receiving
+
+**Priority:** P1 | **Sprint:** 5
+
+---
+
+### US-I15: Generate Reorder Report
+**As a** Procurement Manager, **I want to** generate a report of all items at or below reorder point with suggested quantities, **so that** I can create purchase orders efficiently.
+
+**Acceptance Criteria:**
+- Report lists: item, current quantity, safety stock, avg weekly consumption
+- Suggested reorder quantity = (target stock - current) rounded to order multiple
+- Filter by category, vendor, urgency
+- Exportable as CSV or PDF
+- One-click draft PO creation (future)
+
+**Priority:** P2 | **Sprint:** 8
+
+---
+
+### US-I16: Component Recall Workflow
+**As a** QA Manager (David), **I want to** initiate a component recall by lot number and automatically identify all affected batches, **so that** we can quarantine or recall affected products.
+
+**Acceptance Criteria:**
+- Input: vendor + lot number
+- System identifies: all batches using that lot, their status, distribution
+- Affected lots transition to `recalled` status
+- Affected batches flagged for investigation
+- Recall report generated with full traceability chain
+- Notifications sent to PIC, Production Manager, and affected personnel
+
+**Priority:** P1 | **Sprint:** 5
+
+---
+
+### US-I17: Barcode Label Generation
+**As a** Warehouse Clerk (Tom), **I want to** generate barcode labels for received lots, **so that** technicians can scan materials during batch compounding.
+
+**Acceptance Criteria:**
+- Label includes: item name, lot #, expiry date, barcode, storage condition
+- Barcode format: Code 128 or QR code
+- Print from lot detail page
+- Label template configurable per item category
+
+**Priority:** P1 | **Sprint:** 5
+
+---
+
+### US-I18: Waste/Disposal Tracking
+**As a** Warehouse Clerk (Tom), **I want to** record material disposals with reason and authorization, **so that** we maintain chain of custody for destroyed materials.
+
+**Acceptance Criteria:**
+- Disposal transaction: item, lot, quantity, reason, method
+- Supervisor authorization required (e-signature)
+- Disposal creates `inventory_transaction` (type: `disposed`)
+- HD materials require additional disposal documentation
+- Disposal log exportable for regulatory reporting
+
+**Priority:** P2 | **Sprint:** 8

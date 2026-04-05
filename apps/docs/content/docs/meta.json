@@ -1,0 +1,13 @@
+{
+  "title": "Documentation",
+  "pages": [
+    "index",
+    "getting-started",
+    "authentication",
+    "rbac",
+    "modules",
+    "user-stories",
+    "api-reference",
+    "compliance"
+  ]
+}

@@ -1,0 +1,145 @@
+---
+title: Training & Compliance
+description: User stories for personnel qualification, training records, and regulatory compliance
+---
+
+# Training & Compliance
+
+Personnel qualification, training management, and compliance tracking.
+
+### US-TR01: Define Training Requirement
+**As a** Training Coordinator (Alex), **I want to** define training requirements by role, **so that** every user is trained on the SOPs relevant to their job function.
+
+**Acceptance Criteria:**
+- Training requirement: SOP/document, required roles, frequency (one-time/annual/biannual)
+- Auto-assign training to all users with matching role
+- New users auto-assigned all requirements for their role on creation
+- Training matrix shows: all requirements × all users
+
+**Priority:** P2 | **Sprint:** 7
+
+---
+
+### US-TR02: Assign Individual Training
+**As a** Training Coordinator (Alex), **I want to** assign specific training to individual users, **so that** ad-hoc training needs are tracked.
+
+**Acceptance Criteria:**
+- Select user → select training item → set due date
+- Notification sent to user
+- Training appears in user's "Pending Training" list
+- Overdue training flagged and escalated to supervisor
+
+**Priority:** P2 | **Sprint:** 7
+
+---
+
+### US-TR03: Complete Training (Read & Acknowledge)
+**As a** any user, **I want to** view training material and acknowledge completion, **so that** my training record is updated.
+
+**Acceptance Criteria:**
+- Training item shows: document title, version, description
+- User must open/view the full document
+- Acknowledgment requires e-signature: "Trained on [document name] v[version]"
+- Training record created: user, document, version, date, signature
+- If document updated → re-training auto-assigned
+
+**Priority:** P2 | **Sprint:** 7
+
+---
+
+### US-TR04: View Training Matrix
+**As a** Training Coordinator (Alex), **I want to** view a matrix of all personnel vs all training requirements with completion status, **so that** I can identify training gaps.
+
+**Acceptance Criteria:**
+- Matrix: rows = users, columns = training requirements
+- Cell status: complete, pending, overdue, not assigned
+- Filter by department, role, status
+- Overall compliance percentage per user and per requirement
+- Exportable as CSV or PDF
+- Click cell → training detail
+
+**Priority:** P2 | **Sprint:** 7
+
+---
+
+### US-TR05: Track Competency Assessments
+**As a** Training Coordinator (Alex), **I want to** record practical competency assessments (e.g., aseptic technique, garbing), **so that** hands-on skills are documented.
+
+**Acceptance Criteria:**
+- Assessment record: user, assessor, competency, date, result (pass/fail), notes
+- Assessment types: aseptic technique, garbing, media fill, equipment operation
+- Failed assessments → re-training assignment auto-created
+- Competency status on user profile: qualified/unqualified per skill
+- Assessment history maintained
+
+**Priority:** P2 | **Sprint:** 7
+
+---
+
+### US-TR06: Media Fill Tracking
+**As a** Training Coordinator (Alex), **I want to** track media fill qualifications with automatic expiry, **so that** only qualified personnel are assigned to sterile compounding.
+
+**Acceptance Criteria:**
+- Media fill record: user, date, result (pass/fail), validity period (6 months)
+- Auto-expire qualification after validity period
+- System blocks batch assignment for expired media fill qualification
+- Re-qualification reminder 30 days before expiry
+- Two consecutive failures → user removed from sterile compounding until re-trained
+
+**Priority:** P1 | **Sprint:** 5
+
+---
+
+### US-TR07: Generate Compliance Report
+**As a** Training Coordinator (Alex), **I want to** generate a compliance report showing training completion rates, **so that** I can present to management and auditors.
+
+**Acceptance Criteria:**
+- Report shows: overall compliance %, compliance by department, compliance by role
+- Non-compliant users listed with overdue items
+- Trend: compliance % over time
+- Exportable as PDF
+- Filter by date range
+
+**Priority:** P2 | **Sprint:** 8
+
+---
+
+### US-TR08: New Hire Onboarding Checklist
+**As a** Training Coordinator (Alex), **I want to** auto-generate an onboarding training checklist when a new user is created, **so that** new hires complete all required training.
+
+**Acceptance Criteria:**
+- Role-based onboarding template defines required trainings
+- New user creation → auto-assign all onboarding items with staggered due dates
+- Onboarding progress tracker for supervisor
+- Completion of all items → user status changes to `active`
+- New hire cannot access production modules until onboarding complete
+
+**Priority:** P2 | **Sprint:** 8
+
+---
+
+### US-TR09: Annual Re-Qualification Calendar
+**As a** Training Coordinator (Alex), **I want to** see a calendar of all upcoming re-qualifications (media fill, garbing, annual training), **so that** I can schedule sessions proactively.
+
+**Acceptance Criteria:**
+- Calendar shows: all re-qualification due dates
+- Group by type: media fill, garbing, SOP re-read, competency
+- Filter by department, month
+- Click entry → user detail with qualification history
+- Bulk scheduling for group sessions
+
+**Priority:** P2 | **Sprint:** 8
+
+---
+
+### US-TR10: Track External Certifications
+**As a** Training Coordinator (Alex), **I want to** track external certifications (pharmacist license, PTCB, BPS), **so that** we verify all personnel maintain required credentials.
+
+**Acceptance Criteria:**
+- Certification record: user, type, number, issue date, expiry date
+- Expiry notification 60 days and 30 days before
+- Expired certification → user access restricted
+- Upload certification document
+- Certification types configurable by org
+
+**Priority:** P3 | **Sprint:** Backlog

@@ -1,0 +1,60 @@
+---
+title: Installation
+description: How to set up Clarix for local development
+---
+
+# Installation
+
+## Prerequisites
+
+- **Bun** ≥ 1.2 (`curl -fsSL https://bun.sh/install | bash`)
+- **Node.js** ≥ 24
+- **PostgreSQL** 17 (via Supabase or local Docker)
+- **Android Studio** (for mobile development)
+- **Xcode** (for iOS simulator)
+
+## Clone & Install
+
+```bash
+git clone https://github.com/Notes9Org/clarix.git
+cd clarix
+bun install
+```
+
+## Environment Setup
+
+Create a `.env` file in the project root:
+
+```bash
+DATABASE_URL=postgresql://user:pass@localhost:5432/clarix
+BETTER_AUTH_SECRET=your-secret-key
+BETTER_AUTH_URL=http://localhost:3000
+LOG_LEVEL=info
+```
+
+## Database Setup
+
+```bash
+bun run db:push    # Push schema to database
+bun run db:seed    # Seed with demo data
+```
+
+## Start Development
+
+```bash
+bun run dev        # Starts web (3000), mobile (8081), docs (3001)
+```
+
+## Project Structure
+
+```
+clarix/
+├── apps/web          → Next.js admin dashboard
+├── apps/mobile       → Expo React Native app
+├── apps/docs         → Fumadocs documentation
+├── packages/auth     → Better Auth configuration
+├── packages/db       → Drizzle ORM schema
+├── packages/observability → Logging & tracing
+├── packages/utils    → Shared utilities
+└── docs/             → Internal documentation
+```

@@ -1,0 +1,118 @@
+---
+title: Admin API
+description: Admin API endpoints for user and organization management
+---
+
+# Admin API
+
+Admin-only API endpoints for platform management.
+
+## Users
+
+### List All Users
+
+```http
+GET /api/admin/users
+Authorization: Session cookie (admin role required)
+```
+
+**Response:**
+```json
+{
+  "users": [
+    {
+      "id": "uuid",
+      "name": "Sarah Chen",
+      "email": "sarah@pharma.com",
+      "role": "pharmacist_in_charge",
+      "organization_id": "uuid",
+      "banned": false,
+      "created_at": "2026-01-01T00:00:00Z"
+    }
+  ]
+}
+```
+
+### Update User
+
+```http
+PATCH /api/admin/users
+Content-Type: application/json
+Authorization: Session cookie (admin role required)
+
+{
+  "userId": "uuid",
+  "role": "qa_manager",
+  "banned": false
+}
+```
+
+**Response:**
+```json
+{ "success": true }
+```
+
+## Organizations
+
+### List Organizations
+
+```http
+GET /api/admin/organizations
+Authorization: Session cookie (admin role required)
+```
+
+**Response:**
+```json
+{
+  "organizations": [
+    {
+      "id": "uuid",
+      "name": "Acme Pharma",
+      "slug": "acme-pharma",
+      "created_at": "2026-01-01T00:00:00Z"
+    }
+  ]
+}
+```
+
+### Create Organization
+
+```http
+POST /api/admin/organizations
+Content-Type: application/json
+Authorization: Session cookie (admin role required)
+
+{
+  "name": "Acme Pharma",
+  "slug": "acme-pharma"
+}
+```
+
+**Response:**
+```json
+{
+  "organization": {
+    "id": "uuid",
+    "name": "Acme Pharma",
+    "slug": "acme-pharma",
+    "created_at": "2026-01-01T00:00:00Z"
+  }
+}
+```
+
+## Error Responses
+
+All admin endpoints return errors in the following format:
+
+```json
+{
+  "error": "Description of what went wrong"
+}
+```
+
+| Status | Description |
+|--------|-------------|
+| `400` | Missing required fields |
+| `401` | Not authenticated |
+| `403` | Insufficient permissions (non-admin) |
+| `500` | Server error |

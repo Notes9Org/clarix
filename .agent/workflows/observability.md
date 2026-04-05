@@ -21,6 +21,7 @@ Pick the logger matching the domain. Use `logger` for generic/cross-domain code.
 // turbo
 
 For every new function, add:
+
 - `logger.info(...)` at the start (what's happening)
 - `logger.info(...)` at the end (what succeeded, with duration)
 - `logger.error(...)` in catch blocks (what failed, with context)

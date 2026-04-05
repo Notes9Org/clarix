@@ -29,7 +29,7 @@ export function getPageMarkdownUrl(page: InferPageType<typeof source>) {
 }
 
 export async function getLLMText(page: InferPageType<typeof source>) {
-  const processed = await page.data.getText('processed');
+  const processed = await (page.data as any).getText('processed');
 
   return `# ${page.data.title} (${page.url})
 

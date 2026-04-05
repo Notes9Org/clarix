@@ -46,6 +46,7 @@ cd /Users/nithin/Developer/Apps/fills2.0/clarix && git diff --cached -- '*.ts' '
 
 For each changed module, create or update test files in the appropriate `__tests__/` directory.
 Use `vitest` as the test runner. Tests should cover:
+
 - Changed function behavior
 - Edge cases introduced by the diff
 - API endpoints if routes changed
@@ -94,7 +95,8 @@ cd /Users/nithin/Developer/Apps/fills2.0/clarix && git add -A && git status --sh
 ### 10. Commit with Conventional Commit Message
 
 Generate a commit message following the project's conventional commit format:
-```
+
+```text
 <type>(<scope>): <description>
 
 Types:    feat | fix | refactor | docs | chore | test | ci

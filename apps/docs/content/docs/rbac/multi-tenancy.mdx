@@ -1,5 +1,6 @@
 ---
 title: Multi-Tenancy
+icon: Building2
 description: How Clarix handles multi-tenant organization isolation
 ---
 
@@ -12,18 +13,18 @@ Clarix is a **multi-tenant platform** where each organization (503B pharmacy) op
 Every domain table includes an `organization_id` foreign key. All queries are scoped to the user's active organization.
 
 ```
-User → belongs to → Organization
-Organization → contains → Batches, Inventory, Equipment, etc.
-Session → has → active_organization_id
+User <Icon name="ArrowRight" size={12} /> belongs to <Icon name="ArrowRight" size={12} /> Organization
+Organization <Icon name="ArrowRight" size={12} /> contains <Icon name="ArrowRight" size={12} /> Batches, Inventory, Equipment, etc.
+Session <Icon name="ArrowRight" size={12} /> has <Icon name="ArrowRight" size={12} /> active_organization_id
 ```
 
 ## Current Implementation
 
 | Aspect | Status |
 |--------|--------|
-| Org-scoped tables | ✅ All 20+ domain tables have `organization_id` FK |
-| Session org context | ✅ `session.active_organization_id` |
-| Auto-assign to org | ✅ New users auto-assigned to default org |
+| Org-scoped tables | <Icon name="CircleCheck" size={14} /> All 20+ domain tables have `organization_id` FK |
+| Session org context | <Icon name="CircleCheck" size={14} /> `session.active_organization_id` |
+| Auto-assign to org | <Icon name="CircleCheck" size={14} /> New users auto-assigned to default org |
 | Membership table | 🔜 Planned (organization_member) |
 | Org switching | 🔜 Planned |
 | RLS policies | 🔜 Planned |

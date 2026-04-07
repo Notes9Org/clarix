@@ -1,5 +1,6 @@
 ---
 title: Batch Records
+icon: ClipboardList
 description: Digital batch record management for sterile compounding
 ---
 
@@ -10,7 +11,7 @@ The core module of Clarix — digital batch records replace paper-based manufact
 ## Workflow
 
 ```
-Draft → Scheduled → In Progress → Pending Review → Pending Release → Released
+Draft <Icon name="ArrowRight" size={12} /> Scheduled <Icon name="ArrowRight" size={12} /> In Progress <Icon name="ArrowRight" size={12} /> Pending Review <Icon name="ArrowRight" size={12} /> Pending Release <Icon name="ArrowRight" size={12} /> Released
 ```
 
 ## Key Features
@@ -32,5 +33,5 @@ Draft → Scheduled → In Progress → Pending Review → Pending Release → R
 | B3 | Signature-required steps block progression until captured |
 | B4 | Witness-required steps need a second user's signature |
 | B6 | Out-of-tolerance values auto-flag and prompt deviation creation |
-| B7 | Only QA Manager can transition `pending_review → pending_release` |
-| B8 | Only PIC can transition `pending_release → released` |
+| B7 | Only QA Manager can transition `pending_review <Icon name="ArrowRight" size={12} /> pending_release` |
+| B8 | Only PIC can transition `pending_release <Icon name="ArrowRight" size={12} /> released` |

@@ -1,4 +1,5 @@
 {
   "title": "User Stories",
+  "icon": "BookOpen",
   "pages": ["overview", "batch-compounding", "inventory-management", "environmental-monitoring", "quality-management", "equipment-maintenance", "training-compliance", "admin-operations", "reporting-analytics"]
 }

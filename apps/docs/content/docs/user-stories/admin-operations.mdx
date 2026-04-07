@@ -1,5 +1,6 @@
 ---
 title: Admin & Operations
+icon: Settings
 description: User stories for user management, organization settings, and system administration
 ---
 
@@ -76,7 +77,7 @@ Platform administration, user management, and multi-tenant operations.
 - Filter: role dropdown, status (active/banned), organization
 - Sort: name, email, role, created date, last login
 - Results: avatar, name, email, role badge, status indicator
-- Click user → detail/edit page
+- Click user <Icon name="ArrowRight" size={12} /> detail/edit page
 
 **Priority:** P0 | **Sprint:** 2
 
@@ -205,7 +206,7 @@ Platform administration, user management, and multi-tenant operations.
 
 **Acceptance Criteria:**
 - Allowlist: define IP ranges per organization
-- Requests from outside allowlist → 403 Forbidden
+- Requests from outside allowlist <Icon name="ArrowRight" size={12} /> 403 Forbidden
 - Admin IPs always allowed (bypass)
 - Setting toggleable (off by default)
 - Blocked attempts logged with IP and user agent

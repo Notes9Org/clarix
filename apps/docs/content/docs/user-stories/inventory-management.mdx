@@ -1,5 +1,6 @@
 ---
 title: Inventory Management
+icon: Package
 description: User stories for receiving, lot tracking, stock management, and vendor qualification
 ---
 
@@ -13,7 +14,7 @@ Full lifecycle management of raw materials, components, and finished goods.
 **As a** Warehouse Clerk (Tom), **I want to** receive incoming shipments by scanning barcodes and recording quantities, **so that** all materials are properly documented and quarantined upon arrival.
 
 **Acceptance Criteria:**
-- Scan shipment barcode → auto-populate vendor, PO number, expected items
+- Scan shipment barcode <Icon name="ArrowRight" size={12} /> auto-populate vendor, PO number, expected items
 - Enter received quantity per item (must match or note discrepancy)
 - Upload photo of shipment and packing slip
 - All received lots start in `quarantined` status
@@ -44,7 +45,7 @@ Full lifecycle management of raw materials, components, and finished goods.
 
 **Acceptance Criteria:**
 - Only QC Tech or QA Manager can release (role-enforced)
-- Lot status transitions: `quarantined` → `released`
+- Lot status transitions: `quarantined` <Icon name="ArrowRight" size={12} /> `released`
 - Requires e-signature with meaning "Released for use"
 - Release date and releaser recorded
 - Released lots visible in production component selection
@@ -77,7 +78,7 @@ Full lifecycle management of raw materials, components, and finished goods.
 - Status indicators: adequate (no indicator), low (outlined), critical (bold)
 - Filter by category, vendor, expiry range
 - Sort by quantity, expiry date, last received
-- Click item → detail page with lot breakdown
+- Click item <Icon name="ArrowRight" size={12} /> detail page with lot breakdown
 
 **Priority:** P0 | **Sprint:** 3
 
@@ -88,7 +89,7 @@ Full lifecycle management of raw materials, components, and finished goods.
 
 **Acceptance Criteria:**
 - When technician scans a component, system checks if older lots exist
-- If older unexpired lot available → warning: "Older lot LOT-XXXX available (expires DATE)"
+- If older unexpired lot available <Icon name="ArrowRight" size={12} /> warning: "Older lot LOT-XXXX available (expires DATE)"
 - Technician must provide justification to skip older lot
 - Justification recorded in batch record
 - Skip-FIFO events logged in audit trail
@@ -132,7 +133,7 @@ Full lifecycle management of raw materials, components, and finished goods.
 - Create count session: select items or full count
 - Enter counted quantities per lot
 - System calculates variance (counted vs system)
-- Variance > threshold → flag for investigation
+- Variance > threshold <Icon name="ArrowRight" size={12} /> flag for investigation
 - Adjustment transactions created with supervisor approval
 - Count history maintained for audit
 

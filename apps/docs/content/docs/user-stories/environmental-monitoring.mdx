@@ -1,5 +1,6 @@
 ---
 title: Environmental Monitoring
+icon: Thermometer
 description: User stories for cleanroom monitoring, sampling, and excursion management
 ---
 
@@ -13,7 +14,7 @@ Monitor and document cleanroom conditions per USP &lt;797&gt; requirements.
 **Acceptance Criteria:**
 - Floor plan showing all classified rooms (ISO 5, 7, 8)
 - Status indicators per room: clean (no indicator), alert (outlined), action (bold)
-- Click room → sampling schedule and recent results
+- Click room <Icon name="ArrowRight" size={12} /> sampling schedule and recent results
 - Rooms with overdue samples highlighted
 - Last cleaning date visible per room
 
@@ -39,7 +40,7 @@ Monitor and document cleanroom conditions per USP &lt;797&gt; requirements.
 **As a** Microbiologist, **I want to** record sample collection by scanning the room QR code and entering sample details, **so that** collection is documented and traceable.
 
 **Acceptance Criteria:**
-- Scan room QR code → confirms correct location
+- Scan room QR code <Icon name="ArrowRight" size={12} /> confirms correct location
 - Select sample type and location point
 - Enter media lot number (scan barcode)
 - Timestamp auto-captured
@@ -58,8 +59,8 @@ Monitor and document cleanroom conditions per USP &lt;797&gt; requirements.
 - Find sample by tracking ID or browse by date
 - Enter CFU count per sample
 - System auto-checks: CFU vs alert limit, CFU vs action limit
-- If exceeds alert → set `exceeds_alert = true`, notification to QA Manager
-- If exceeds action → set `exceeds_action = true`, auto-create excursion
+- If exceeds alert <Icon name="ArrowRight" size={12} /> set `exceeds_alert = true`, notification to QA Manager
+- If exceeds action <Icon name="ArrowRight" size={12} /> set `exceeds_action = true`, auto-create excursion
 - E-signature on result entry
 
 **Priority:** P1 | **Sprint:** 5
@@ -144,7 +145,7 @@ Monitor and document cleanroom conditions per USP &lt;797&gt; requirements.
 - Calendar view by day/week
 - Each entry shows: room, sampling point, sample type, status (due/complete)
 - Color coding: due (no fill), complete (filled), overdue (bold outline)
-- Click entry → collect sample or view result
+- Click entry <Icon name="ArrowRight" size={12} /> collect sample or view result
 
 **Priority:** P1 | **Sprint:** 6
 

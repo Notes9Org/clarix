@@ -1,5 +1,6 @@
 ---
 title: Training & Compliance
+icon: GraduationCap
 description: User stories for personnel qualification, training records, and regulatory compliance
 ---
 
@@ -24,7 +25,7 @@ Personnel qualification, training management, and compliance tracking.
 **As a** Training Coordinator (Alex), **I want to** assign specific training to individual users, **so that** ad-hoc training needs are tracked.
 
 **Acceptance Criteria:**
-- Select user → select training item → set due date
+- Select user <Icon name="ArrowRight" size={12} /> select training item <Icon name="ArrowRight" size={12} /> set due date
 - Notification sent to user
 - Training appears in user's "Pending Training" list
 - Overdue training flagged and escalated to supervisor
@@ -41,7 +42,7 @@ Personnel qualification, training management, and compliance tracking.
 - User must open/view the full document
 - Acknowledgment requires e-signature: "Trained on [document name] v[version]"
 - Training record created: user, document, version, date, signature
-- If document updated → re-training auto-assigned
+- If document updated <Icon name="ArrowRight" size={12} /> re-training auto-assigned
 
 **Priority:** P2 | **Sprint:** 7
 
@@ -56,7 +57,7 @@ Personnel qualification, training management, and compliance tracking.
 - Filter by department, role, status
 - Overall compliance percentage per user and per requirement
 - Exportable as CSV or PDF
-- Click cell → training detail
+- Click cell <Icon name="ArrowRight" size={12} /> training detail
 
 **Priority:** P2 | **Sprint:** 7
 
@@ -68,7 +69,7 @@ Personnel qualification, training management, and compliance tracking.
 **Acceptance Criteria:**
 - Assessment record: user, assessor, competency, date, result (pass/fail), notes
 - Assessment types: aseptic technique, garbing, media fill, equipment operation
-- Failed assessments → re-training assignment auto-created
+- Failed assessments <Icon name="ArrowRight" size={12} /> re-training assignment auto-created
 - Competency status on user profile: qualified/unqualified per skill
 - Assessment history maintained
 
@@ -84,7 +85,7 @@ Personnel qualification, training management, and compliance tracking.
 - Auto-expire qualification after validity period
 - System blocks batch assignment for expired media fill qualification
 - Re-qualification reminder 30 days before expiry
-- Two consecutive failures → user removed from sterile compounding until re-trained
+- Two consecutive failures <Icon name="ArrowRight" size={12} /> user removed from sterile compounding until re-trained
 
 **Priority:** P1 | **Sprint:** 5
 
@@ -109,9 +110,9 @@ Personnel qualification, training management, and compliance tracking.
 
 **Acceptance Criteria:**
 - Role-based onboarding template defines required trainings
-- New user creation → auto-assign all onboarding items with staggered due dates
+- New user creation <Icon name="ArrowRight" size={12} /> auto-assign all onboarding items with staggered due dates
 - Onboarding progress tracker for supervisor
-- Completion of all items → user status changes to `active`
+- Completion of all items <Icon name="ArrowRight" size={12} /> user status changes to `active`
 - New hire cannot access production modules until onboarding complete
 
 **Priority:** P2 | **Sprint:** 8
@@ -125,7 +126,7 @@ Personnel qualification, training management, and compliance tracking.
 - Calendar shows: all re-qualification due dates
 - Group by type: media fill, garbing, SOP re-read, competency
 - Filter by department, month
-- Click entry → user detail with qualification history
+- Click entry <Icon name="ArrowRight" size={12} /> user detail with qualification history
 - Bulk scheduling for group sessions
 
 **Priority:** P2 | **Sprint:** 8
@@ -138,7 +139,7 @@ Personnel qualification, training management, and compliance tracking.
 **Acceptance Criteria:**
 - Certification record: user, type, number, issue date, expiry date
 - Expiry notification 60 days and 30 days before
-- Expired certification → user access restricted
+- Expired certification <Icon name="ArrowRight" size={12} /> user access restricted
 - Upload certification document
 - Certification types configurable by org
 

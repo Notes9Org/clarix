@@ -1,5 +1,6 @@
 ---
 title: Equipment & Maintenance
+icon: Wrench
 description: User stories for equipment registry, calibration, cleaning, and maintenance scheduling
 ---
 
@@ -29,7 +30,7 @@ Manage facility equipment lifecycle from commissioning to decommission.
 - Per equipment: calibration frequency (monthly, quarterly, semi-annual, annual)
 - Due date auto-calculated from last calibration + frequency
 - Reminder notification 14 days and 3 days before due
-- If not calibrated by due date → status auto-transitions to `out_of_calibration`
+- If not calibrated by due date <Icon name="ArrowRight" size={12} /> status auto-transitions to `out_of_calibration`
 - OOC equipment cannot be referenced in batch records (system-enforced)
 
 **Priority:** P1 | **Sprint:** 5
@@ -43,8 +44,8 @@ Manage facility equipment lifecycle from commissioning to decommission.
 - Calibration record: date, technician, method, reference standard used
 - As-found and as-left readings recorded
 - Pass/fail determination based on acceptable range
-- If fail → equipment transitions to `out_of_calibration` + deviation created
-- If pass → next due date auto-set
+- If fail <Icon name="ArrowRight" size={12} /> equipment transitions to `out_of_calibration` + deviation created
+- If pass <Icon name="ArrowRight" size={12} /> next due date auto-set
 - E-signature: "Calibration performed by"
 - Calibration certificate uploadable
 
@@ -61,7 +62,7 @@ Manage facility equipment lifecycle from commissioning to decommission.
 - E-signature: "Cleaned by"
 - Room status updated: `cleaned` with clean-hold expiry
 - Clean-hold expiry: configurable per room (e.g., 24 hours)
-- Expired clean-hold → room status = `requires_cleaning`
+- Expired clean-hold <Icon name="ArrowRight" size={12} /> room status = `requires_cleaning`
 
 **Priority:** P1 | **Sprint:** 5
 
@@ -90,7 +91,7 @@ Manage facility equipment lifecycle from commissioning to decommission.
 - Parts consumed from inventory (optional integration)
 - Completion triggers e-signature
 - Work order history maintained per equipment
-- If issue discovered → deviation creation
+- If issue discovered <Icon name="ArrowRight" size={12} /> deviation creation
 
 **Priority:** P1 | **Sprint:** 6
 
@@ -104,7 +105,7 @@ Manage facility equipment lifecycle from commissioning to decommission.
 - Status: active, out_of_calibration, maintenance_required, decommissioned
 - Filter by status, location, category
 - Calendar view of upcoming calibrations and PMs
-- Click equipment → full detail page
+- Click equipment <Icon name="ArrowRight" size={12} /> full detail page
 
 **Priority:** P1 | **Sprint:** 5
 
@@ -142,7 +143,7 @@ Manage facility equipment lifecycle from commissioning to decommission.
 **As a** the system, **I want to** enforce cleaning agent rotation per room, **so that** microbial resistance is prevented.
 
 **Acceptance Criteria:**
-- Define cleaning agent rotation schedule per room (e.g., Agent A → Agent B → Agent A)
+- Define cleaning agent rotation schedule per room (e.g., Agent A <Icon name="ArrowRight" size={12} /> Agent B <Icon name="ArrowRight" size={12} /> Agent A)
 - System suggests next agent based on rotation schedule
 - Alert if same agent used consecutively beyond allowed count
 - Cleaning agent lot tracking for traceability

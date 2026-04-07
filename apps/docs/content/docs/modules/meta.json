@@ -1,4 +1,5 @@
 {
   "title": "Modules",
+  "icon": "LayoutGrid",
   "pages": ["batch-records", "inventory", "environmental-monitoring", "quality", "equipment", "formulas", "training", "documents", "lab-samples"]
 }

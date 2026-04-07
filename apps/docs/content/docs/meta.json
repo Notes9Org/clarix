@@ -1,5 +1,6 @@
 {
   "title": "Documentation",
+  "icon": "Book",
   "pages": [
     "index",
     "getting-started",

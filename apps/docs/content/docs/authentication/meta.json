@@ -1,4 +1,5 @@
 {
   "title": "Authentication",
+  "icon": "KeyRound",
   "pages": ["overview", "email-password", "session-management"]
 }

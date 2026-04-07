@@ -1,5 +1,6 @@
 ---
 title: Batch Compounding
+icon: FlaskConical
 description: User stories for batch record creation, execution, review, and release
 ---
 
@@ -45,7 +46,7 @@ The core workflow of any 503B facility — from formula creation to batch releas
 **Acceptance Criteria:**
 - PIC can view all fields, components, and steps side-by-side
 - Approval requires e-signature (PIN + biometric on iPad)
-- Status transitions: `draft` → `approved`
+- Status transitions: `draft` <Icon name="ArrowRight" size={12} /> `approved`
 - Only PIC role can approve formulas (enforced by system)
 - E-signature record includes: signer name, role, meaning ("Approved for production"), timestamp
 
@@ -92,9 +93,9 @@ The core workflow of any 503B facility — from formula creation to batch releas
 **Acceptance Criteria:**
 - Login screen with large PIN pad + FaceID (gloved hands)
 - "My Batches" shows only batches assigned to Maria for today
-- Tap batch → system checks: Maria is qualified, room is clean, equipment is calibrated
-- If checks pass → batch transitions to `in_progress`
-- If checks fail → block start, show reason (e.g., "Media fill expired")
+- Tap batch <Icon name="ArrowRight" size={12} /> system checks: Maria is qualified, room is clean, equipment is calibrated
+- If checks pass <Icon name="ArrowRight" size={12} /> batch transitions to `in_progress`
+- If checks fail <Icon name="ArrowRight" size={12} /> block start, show reason (e.g., "Media fill expired")
 - E-signature required to begin ("Commenced compounding")
 
 **Priority:** P0 | **Sprint:** 1
@@ -112,7 +113,7 @@ The core workflow of any 503B facility — from formula creation to batch releas
 - Timer function for timed steps (e.g., mixing duration)
 - Steps execute in sequence — cannot skip ahead
 - Each step requires e-signature on completion
-- If tolerance exceeded → prompt for deviation creation
+- If tolerance exceeded <Icon name="ArrowRight" size={12} /> prompt for deviation creation
 
 **Priority:** P0 | **Sprint:** 1
 
@@ -125,7 +126,7 @@ The core workflow of any 503B facility — from formula creation to batch releas
 - Full-screen camera viewfinder for barcode scanning
 - Scan auto-populates: item name, lot number, expiry date, quantity available
 - System validates: lot is `released`, not expired, matches expected component
-- If validation fails → block usage, show error with reason
+- If validation fails <Icon name="ArrowRight" size={12} /> block usage, show error with reason
 - Scanned lot/quantity recorded in `batch_components_used`
 - FIFO warning if a newer lot is scanned when an older one is available
 
@@ -157,7 +158,7 @@ The core workflow of any 503B facility — from formula creation to batch releas
 - FaceID/TouchID as secondary factor
 - Signature record is immutable (INSERT-only)
 - Failed attempts logged with IP + device info
-- 5 failed attempts → account lockout for 30 minutes
+- 5 failed attempts <Icon name="ArrowRight" size={12} /> account lockout for 30 minutes
 
 **Priority:** P0 | **Sprint:** 1
 
@@ -205,7 +206,7 @@ The core workflow of any 503B facility — from formula creation to batch releas
 - Linked deviations visible with status
 - Lab sample results displayed (if available)
 - Reviewer can add comments per step
-- Approve → `pending_release` or Reject → `rejected` with required reason
+- Approve <Icon name="ArrowRight" size={12} /> `pending_release` or Reject <Icon name="ArrowRight" size={12} /> `rejected` with required reason
 - E-signature required for review decision
 
 **Priority:** P0 | **Sprint:** 3
@@ -253,7 +254,7 @@ The core workflow of any 503B facility — from formula creation to batch releas
 - Columns: Draft, Scheduled, In Progress, Pending Review, Pending Release, Released
 - Each card shows: batch #, product name, technician, date
 - Filter by date range, product, technician
-- Click card → batch detail page
+- Click card <Icon name="ArrowRight" size={12} /> batch detail page
 
 **Priority:** P1 | **Sprint:** 4
 
@@ -309,7 +310,7 @@ The core workflow of any 503B facility — from formula creation to batch releas
 - HD flag set at formula level, inherited by batch
 - System blocks assignment to technicians without `hd_trained = true`
 - HD batches require: C-PEC equipment, HD-specific PPE checklist
-- Visual HD indicator on batch card (⚠ icon)
+- Visual HD indicator on batch card (<Icon name="TriangleAlert" size={14} />)
 - Separate HD room validation
 
 **Priority:** P1 | **Sprint:** 5
@@ -323,7 +324,7 @@ The core workflow of any 503B facility — from formula creation to batch releas
 - Each scanned component creates a `batch_components_used` record
 - Record includes: lot number, quantity used, timestamp, who scanned
 - Inventory auto-decremented on batch completion
-- Full forward/backward traceability: component lot → batch → distributed product
+- Full forward/backward traceability: component lot <Icon name="ArrowRight" size={12} /> batch <Icon name="ArrowRight" size={12} /> distributed product
 - Recall simulation: given a lot number, list all affected batches
 
 **Priority:** P0 | **Sprint:** 2

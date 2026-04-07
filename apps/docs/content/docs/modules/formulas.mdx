@@ -1,5 +1,6 @@
 ---
 title: Master Formulas
+icon: FlaskConical
 description: Recipe management with versioning, BOM, and approval workflows
 ---
 
@@ -20,7 +21,7 @@ A formula consists of three major components:
 ## Formula Lifecycle
 
 ```
-Draft → Approved → Superseded (when new version created)
+Draft <Icon name="ArrowRight" size={12} /> Approved <Icon name="ArrowRight" size={12} /> Superseded (when new version created)
 ```
 
 ## Versioning Rules
@@ -34,7 +35,7 @@ Draft → Approved → Superseded (when new version created)
 
 | Rule | Description |
 |------|-------------|
-| F1 | Only PIC can approve a formula (`draft` → `approved`) |
+| F1 | Only PIC can approve a formula (`draft` <Icon name="ArrowRight" size={12} /> `approved`) |
 | F2 | Approval requires e-signature with meaning "Approved for production" |
 | F3 | BOM quantities must have defined tolerance ranges |
 | F4 | Steps cannot have duplicate sequence numbers |

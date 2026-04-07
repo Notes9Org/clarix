@@ -1,5 +1,6 @@
 ---
 title: Quality Management
+icon: BadgeCheck
 description: User stories for deviations, CAPAs, document control, and quality oversight
 ---
 
@@ -32,7 +33,7 @@ Deviation tracking, CAPA management, and document control for regulatory complia
 - Investigation form: root cause, contributing factors, patient impact assessment
 - Root cause tools: 5-Why template, fishbone diagram fields
 - Attach evidence: photos, documents, batch records
-- Status transitions: `open` → `under_investigation` → `pending_capa`
+- Status transitions: `open` <Icon name="ArrowRight" size={12} /> `under_investigation` <Icon name="ArrowRight" size={12} /> `pending_capa`
 - Days-open counter auto-increments daily
 - Deviations open > 30 days escalate notification to VP
 
@@ -89,7 +90,7 @@ Deviation tracking, CAPA management, and document control for regulatory complia
 **As a** QA Manager (David), **I want to** track the progress of all CAPAs through their lifecycle, **so that** no action item falls through the cracks.
 
 **Acceptance Criteria:**
-- Status flow: `initiated` → `in_progress` → `pending_verification` → `closed`
+- Status flow: `initiated` <Icon name="ArrowRight" size={12} /> `in_progress` <Icon name="ArrowRight" size={12} /> `pending_verification` <Icon name="ArrowRight" size={12} /> `closed`
 - Assigned user updates progress notes
 - Overdue CAPAs: auto-escalation notification
 - Completion evidence uploadable (retrained SOPs, new equipment, etc.)
@@ -106,7 +107,7 @@ Deviation tracking, CAPA management, and document control for regulatory complia
 - Effectiveness check: different user than person who completed the CAPA
 - Verification form: was the action implemented? Did similar deviations recur?
 - Evidence of effectiveness required (data, observations)
-- If effective → `closed`, if not effective → reopen with new action plan
+- If effective <Icon name="ArrowRight" size={12} /> `closed`, if not effective <Icon name="ArrowRight" size={12} /> reopen with new action plan
 - E-signature: "Effectiveness verified"
 
 **Priority:** P1 | **Sprint:** 6
@@ -134,7 +135,7 @@ Deviation tracking, CAPA management, and document control for regulatory complia
 
 **Acceptance Criteria:**
 - Reviewer can view document and add comments
-- Approval workflow: author → reviewer → approver
+- Approval workflow: author <Icon name="ArrowRight" size={12} /> reviewer <Icon name="ArrowRight" size={12} /> approver
 - E-signature on approval: "Approved for use"
 - Previous version transitions to `superseded`
 - New version transitions to `approved` with effective date
@@ -152,7 +153,7 @@ Deviation tracking, CAPA management, and document control for regulatory complia
 - Filter by: type, department, status, date range
 - Results show: title, number, version, status, effective date
 - Only `approved` versions shown by default (option to show all)
-- Click → view document detail with download link
+- Click <Icon name="ArrowRight" size={12} /> view document detail with download link
 
 **Priority:** P1 | **Sprint:** 6
 
@@ -162,7 +163,7 @@ Deviation tracking, CAPA management, and document control for regulatory complia
 **As a** Training Coordinator (Alex), **I want to** track which personnel have read and acknowledged each document, **so that** we can verify training completion.
 
 **Acceptance Criteria:**
-- When document approved → training assignments auto-created for relevant roles
+- When document approved <Icon name="ArrowRight" size={12} /> training assignments auto-created for relevant roles
 - Users see "Documents to acknowledge" in their notification center
 - Acknowledgment requires: read confirmation + e-signature
 - Training coordinator sees: % completion per document
@@ -207,7 +208,7 @@ Deviation tracking, CAPA management, and document control for regulatory complia
 
 **Acceptance Criteria:**
 - Change request form: description, reason, impact assessment, proposed plan
-- Approval workflow: requestor → department head → QA → PIC
+- Approval workflow: requestor <Icon name="ArrowRight" size={12} /> department head <Icon name="ArrowRight" size={12} /> QA <Icon name="ArrowRight" size={12} /> PIC
 - Impact categories: equipment, process, personnel, facility, document
 - Implementation tracking with checklist
 - Post-implementation review required

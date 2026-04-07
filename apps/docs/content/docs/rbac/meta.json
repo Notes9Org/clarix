@@ -1,4 +1,5 @@
 {
   "title": "RBAC",
+  "icon": "ShieldCheck",
   "pages": ["roles", "permissions", "multi-tenancy"]
 }
